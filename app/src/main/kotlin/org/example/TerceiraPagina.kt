@@ -83,67 +83,63 @@ fun irParaLocalizarSalas(event: ActionEvent) {
     @FXML
     fun iniciarJogo(event: ActionEvent) {
         try {
-            var arquivoExe = File("app/src/main/roast/WorkBot.exe")
+            var arquivoExe = File(System.getProperty("user.dir"), "jogo/WorkBot.exe")
+            
+            // Tentativas de fallback para o ambiente de desenvolvimento
+            if (!arquivoExe.exists()) {
+                arquivoExe = File("app/src/main/roast/WorkBot.exe")
+            }
             if (!arquivoExe.exists()) {
                 arquivoExe = File("src/main/roast/WorkBot.exe") 
             }
-            // Terceira tentativa de segurança (força a partir da raiz do sistema)
-            if (!arquivoExe.exists()) {
-                arquivoExe = File(System.getProperty("user.dir"), "app/src/main/roast/WorkBot.exe")
-            }
-            
+
             if (arquivoExe.exists()) {
                 val pastaDoJogo = arquivoExe.parentFile
-                println("🚀 Tentando abrir diretamente o executável: ${arquivoExe.absolutePath}")
+                println("Tentando abrir diretamente o executável: ${arquivoExe.absolutePath}")
                 
                 // Esconde a Barriga
                 Sessao.palcoBarriga?.hide()
                 
                 Thread {
                     try {
-                        // 1. CHAMA O .EXE DIRETAMENTE (Sem cmd, sem start, sem frescura do Windows)
                         val processo = ProcessBuilder(arquivoExe.absolutePath)
                         processo.directory(pastaDoJogo) 
                         
-                        // 2. LIMPA O AMBIENTE TOTALMENTE (Isola o jogo do seu robô)
                         val env = processo.environment()
                         env.remove("JAVA_HOME")
                         env.remove("JAVA_TOOL_OPTIONS")
                         env.remove("_JAVA_OPTIONS")
                         
-                        // 3. A GRANDE JOGADA: Cria um arquivo de texto para pegar o erro do jogo!
                         val logCrash = File(pastaDoJogo, "log_crash_jogo.txt")
-                        processo.redirectErrorStream(true) // Junta os logs normais com os de erro
-                        processo.redirectOutput(logCrash)  // Despeja tudo no arquivo de texto
+                        processo.redirectErrorStream(true)
+                        processo.redirectOutput(logCrash) 
                         
                         val processoAtivo = processo.start()
-                        println("🎮 SUCESSO: O arquivo .exe foi disparado e isolado!")
+                        println("O arquivo .exe foi disparado e isolado!")
                         
-                        // Fica aguardando...
                         processoAtivo.waitFor() 
                         
-                        // Se voltar rápido demais, o log vai nos dizer o motivo:
                         if (logCrash.exists() && logCrash.length() > 0) {
-                            println("⚠️ O jogo fechou e deixou o seguinte aviso no log:")
+                            println("O jogo fechou e deixou o seguinte aviso no log:")
                             println(logCrash.readText())
                         }
                         
                         Platform.runLater {
-                            println("🔄 Restaurando a tela da Barriga...")
+                            println("Restaurando a tela da Barriga...")
                             Sessao.palcoBarriga?.show()
                             Sessao.palcoBarriga?.isFullScreen = true
                             Sessao.palcoBarriga?.requestFocus()
                         }
                     } catch (e: Exception) {
-                        println("❌ Erro interno ao disparar a Thread: ${e.message}")
+                        println("Erro interno ao disparar a Thread: ${e.message}")
                     }
                 }.start()
                 
             } else {
-                println("❌ ERRO CRÍTICO: O arquivo .exe não foi encontrado em lugar nenhum!")
+                println("ERRO CRÍTICO: O arquivo .exe não foi encontrado em lugar nenhum!")
             }
         } catch (e: Exception) {
-            println("❌ Erro geral no botão: ${e.message}")
+            println("Erro geral no botão: ${e.message}")
             e.printStackTrace()
         }
     }
@@ -153,7 +149,7 @@ fun irParaLocalizarSalas(event: ActionEvent) {
         val caminho = when (Sessao.idiomaEscolhido) {
             "en" -> "/htmls/programacao_diaria/programacao_diaria_ingles.html"
             "esp" -> "/htmls/programacao_diaria/programacao_diaria_espanhol.html"
-            else -> "/htmls/programacao_diaria/programacaodia.html" 
+            else -> "/htmls/programacao_diaria/programacao_diaria.html" 
         }
         
         println("🔘 MENU: Botão Programação Diária clicado! Idioma: ${Sessao.idiomaEscolhido}")
@@ -287,7 +283,7 @@ fun abrirSenai(event: ActionEvent) {
         val stage = (event.source as Node).scene.window as Stage
 
         // Cria a Scene com o tamanho correto
-        val scene = Scene(root, 1366.0, 768.0)
+        val scene = Scene(root, 1920.0, 1080.0)
 
         stage.scene = scene
 
