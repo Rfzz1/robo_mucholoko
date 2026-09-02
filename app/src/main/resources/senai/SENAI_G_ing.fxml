@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -64,99 +65,107 @@
 
 
       <!-- ========================= -->
-      <!-- PAINEL INFORMATIVO -->
-      <!-- ========================= -->
+<!-- PAINEL INFORMATIVO -->
+<!-- ========================= -->
 
-      <Pane
-          layoutX="25.0"
-          layoutY="165.0"
-          prefHeight="490.0"
-          prefWidth="650.0"
-          style="-fx-background-color: #ffff; -fx-background-radius: 30px;">
+<Pane
+    layoutX="25.0"
+    layoutY="165.0"
+    prefHeight="490.0"
+    prefWidth="650.0"
+    style="-fx-background-color: #ffffff;
+           -fx-background-radius: 30px;">
 
-         <children>
+    <children>
 
-            <Text
-                fill="#0000b7"
-                layoutX="35.0"
-                layoutY="60.0"
-                strokeType="OUTSIDE"
-                strokeWidth="0.0"
-                text="CEIT, in partnership with SENAI, offers three professional training programs, providing students with knowledge and experience in different areas:"
-                wrappingWidth="580.0">
+        <VBox
+            layoutX="35.0"
+            layoutY="25.0"
+            prefWidth="580.0"
+            prefHeight="440.0"
+            spacing="18.0">
 
-               <font>
-                  <Font name="Candara" size="28.0"/>
-               </font>
+            <children>
 
-            </Text>
+                <!-- INTRODUÇÃO -->
 
+                <Text
+                    fill="#0000b7"
+                    wrappingWidth="580.0"
+                    text="CEIT, in partnership with SENAI, offers three professional training programs, providing students with knowledge and experience in different areas.">
 
-            <Text
-                fill="#0000b7"
-                layoutX="55.0"
-                layoutY="255.0"
-                strokeType="OUTSIDE"
-                strokeWidth="0.0"
-                text="-&gt; Systems Development Technician;"
-                wrappingWidth="550.0">
+                    <font>
+                        <Font name="Candara" size="24.0"/>
+                    </font>
 
-               <font>
-                  <Font name="Candara Bold" size="27.0"/>
-               </font>
-
-            </Text>
+                </Text>
 
 
-            <Text
-                fill="#0000b7"
-                layoutX="55.0"
-                layoutY="320.0"
-                strokeType="OUTSIDE"
-                strokeWidth="0.0"
-                text="-&gt; Robotics and Mechatronics Technician;"
-                wrappingWidth="550.0">
+                <!-- CURSOS -->
 
-               <font>
-                  <Font name="Candara Bold" size="27.0"/>
-               </font>
+                <VBox
+                    prefWidth="550.0"
+                    spacing="14.0">
 
-            </Text>
+                    <children>
 
+                        <Text
+                            fill="#0000b7"
+                            wrappingWidth="550.0"
+                            text="-&gt; Systems Development Technician">
 
-            <Text
-                fill="#0000b7"
-                layoutX="55.0"
-                layoutY="385.0"
-                strokeType="OUTSIDE"
-                strokeWidth="0.0"
-                text="-&gt; Polymer Processing Apprenticeship."
-                wrappingWidth="550.0">
+                            <font>
+                                <Font name="Candara Bold" size="24.0"/>
+                            </font>
 
-               <font>
-                  <Font name="Candara Bold" size="27.0"/>
-               </font>
-
-            </Text>
+                        </Text>
 
 
-            <Text
-                fill="#0000b7"
-                layoutX="35.0"
-                layoutY="450.0"
-                strokeType="OUTSIDE"
-                strokeWidth="0.0"
-                text="Each program focuses on a different area of specialization and offers opportunities to develop professional skills."
-                wrappingWidth="580.0">
+                        <Text
+                            fill="#0000b7"
+                            wrappingWidth="550.0"
+                            text="-&gt; Robotics and Mechatronics Technician">
 
-               <font>
-                  <Font name="Candara" size="27.0"/>
-               </font>
+                            <font>
+                                <Font name="Candara Bold" size="24.0"/>
+                            </font>
 
-            </Text>
+                        </Text>
 
-         </children>
-      </Pane>
+
+                        <Text
+                            fill="#0000b7"
+                            wrappingWidth="550.0"
+                            text="-&gt; Polymer Processing Apprenticeship">
+
+                            <font>
+                                <Font name="Candara Bold" size="24.0"/>
+                            </font>
+
+                        </Text>
+
+                    </children>
+                </VBox>
+
+
+                <!-- CONCLUSÃO -->
+
+                <Text
+                    fill="#0000b7"
+                    wrappingWidth="580.0"
+                    text="Each program focuses on a different area of specialization and offers opportunities to develop professional skills.">
+
+                    <font>
+                        <Font name="Candara" size="24.0"/>
+                    </font>
+
+                </Text>
+
+            </children>
+        </VBox>
+
+    </children>
+</Pane>
 
 
       <!-- ========================= -->
