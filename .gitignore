@@ -42,3 +42,8 @@ roast/
 *.tmp
 *.bak
 *.cache
+
+# Pasta de distribuição/build final
+dist/
+
+!gradle/wrapper/gradle-wrapper.jar
