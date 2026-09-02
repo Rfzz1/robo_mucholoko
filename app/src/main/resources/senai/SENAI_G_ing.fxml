@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane
+    maxHeight="768.0"
+    maxWidth="1366.0"
+    minHeight="768.0"
+    minWidth="1366.0"
+    prefHeight="768.0"
+    prefWidth="1366.0"
+    style="-fx-background-color: #dfdfeb;"
+    xmlns="http://javafx.com/javafx/26"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="org.example.Senai">
+
+   <children>
+
+      <!-- ========================= -->
+      <!-- CABEÇALHO -->
+      <!-- ========================= -->
+
+      <Pane
+          prefHeight="134.0"
+          prefWidth="1366.0"
+          style="-fx-background-color: #0000b7;">
+
+         <children>
+
+            <ImageView
+                fitHeight="95.0"
+                fitWidth="114.0"
+                layoutX="20.0"
+                layoutY="9.0"
+                pickOnBounds="true"
+                preserveRatio="true">
+
+               <image>
+                  <Image url="@../Senai_Pequeno/fundoT.png"/>
+               </image>
+
+            </ImageView>
+
+            <Label
+                layoutX="615.0"
+                layoutY="18.0"
+                text="SENAI"
+                textFill="WHITE">
+
+               <font>
+                  <Font name="Cambria Bold" size="72.0"/>
+               </font>
+
+            </Label>
+
+         </children>
+      </Pane>
+
+
+      <!-- ========================= -->
+      <!-- PAINEL INFORMATIVO -->
+      <!-- ========================= -->
+
+      <Pane
+          layoutX="25.0"
+          layoutY="165.0"
+          prefHeight="490.0"
+          prefWidth="650.0"
+          style="-fx-background-color: #ffff; -fx-background-radius: 30px;">
+
+         <children>
+
+            <Text
+                fill="#0000b7"
+                layoutX="35.0"
+                layoutY="60.0"
+                strokeType="OUTSIDE"
+                strokeWidth="0.0"
+                text="CEIT, in partnership with SENAI, offers three professional training programs, providing students with knowledge and experience in different areas:"
+                wrappingWidth="580.0">
+
+               <font>
+                  <Font name="Candara" size="28.0"/>
+               </font>
+
+            </Text>
+
+
+            <Text
+                fill="#0000b7"
+                layoutX="55.0"
+                layoutY="255.0"
+                strokeType="OUTSIDE"
+                strokeWidth="0.0"
+                text="-&gt; Systems Development Technician;"
+                wrappingWidth="550.0">
+
+               <font>
+                  <Font name="Candara Bold" size="27.0"/>
+               </font>
+
+            </Text>
+
+
+            <Text
+                fill="#0000b7"
+                layoutX="55.0"
+                layoutY="320.0"
+                strokeType="OUTSIDE"
+                strokeWidth="0.0"
+                text="-&gt; Robotics and Mechatronics Technician;"
+                wrappingWidth="550.0">
+
+               <font>
+                  <Font name="Candara Bold" size="27.0"/>
+               </font>
+
+            </Text>
+
+
+            <Text
+                fill="#0000b7"
+                layoutX="55.0"
+                layoutY="385.0"
+                strokeType="OUTSIDE"
+                strokeWidth="0.0"
+                text="-&gt; Polymer Processing Apprenticeship."
+                wrappingWidth="550.0">
+
+               <font>
+                  <Font name="Candara Bold" size="27.0"/>
+               </font>
+
+            </Text>
+
+
+            <Text
+                fill="#0000b7"
+                layoutX="35.0"
+                layoutY="450.0"
+                strokeType="OUTSIDE"
+                strokeWidth="0.0"
+                text="Each program focuses on a different area of specialization and offers opportunities to develop professional skills."
+                wrappingWidth="580.0">
+
+               <font>
+                  <Font name="Candara" size="27.0"/>
+               </font>
+
+            </Text>
+
+         </children>
+      </Pane>
+
+
+      <!-- ========================= -->
+      <!-- TEXTO LADO DIREITO -->
+      <!-- ========================= -->
+
+      <Text
+          fill="#0000b7"
+          layoutX="735.0"
+          layoutY="205.0"
+          strokeType="OUTSIDE"
+          strokeWidth="0.0"
+          text="Want to know more? Watch the videos and learn a little more about each course!"
+          wrappingWidth="560.0">
+
+         <font>
+            <Font name="Candara Bold" size="30.0"/>
+         </font>
+
+      </Text>
+
+
+      <!-- ========================= -->
+      <!-- SISTEMAS -->
+      <!-- ========================= -->
+
+      <Button
+          layoutX="735.0"
+          layoutY="285.0"
+          mnemonicParsing="false"
+          prefHeight="60.0"
+          prefWidth="590.0"
+          style="-fx-background-radius: 30px; -fx-background-color: #0000b7;"
+          text="Systems Development Technician"
+          textFill="WHITE"
+          onAction="#abrirDesenvolvimentoSistemas">
+
+         <font>
+            <Font name="Candara Bold" size="27.0"/>
+         </font>
+
+      </Button>
+
+
+      <!-- ========================= -->
+      <!-- MECATRÔNICA -->
+      <!-- ========================= -->
+
+      <Button
+          layoutX="735.0"
+          layoutY="370.0"
+          mnemonicParsing="false"
+          prefHeight="60.0"
+          prefWidth="590.0"
+          style="-fx-background-radius: 30px; -fx-background-color: #0000b7;"
+          text="Robotics and Mechatronics Technician"
+          textFill="WHITE"
+          onAction="#abrirMecatronica">
+
+         <font>
+            <Font name="Candara Bold" size="27.0"/>
+         </font>
+
+      </Button>
+
+
+      <!-- ========================= -->
+      <!-- POLÍMEROS -->
+      <!-- ========================= -->
+
+      <Button
+          layoutX="735.0"
+          layoutY="455.0"
+          mnemonicParsing="false"
+          prefHeight="60.0"
+          prefWidth="590.0"
+          style="-fx-background-radius: 30px; -fx-background-color: #0000b7;"
+          text="Polymer Processing Apprenticeship"
+          textFill="WHITE"
+          onAction="#abrirPolimeros">
+
+         <font>
+            <Font name="Candara Bold" size="27.0"/>
+         </font>
+
+      </Button>
+
+
+      <!-- ========================= -->
+      <!-- VOLTAR -->
+      <!-- ========================= -->
+
+      <Button
+          layoutX="735.0"
+          layoutY="555.0"
+          mnemonicParsing="false"
+          prefHeight="60.0"
+          prefWidth="590.0"
+          style="-fx-background-radius: 30px; -fx-background-color: #ff751f;"
+          text="Back"
+          textFill="WHITE"
+          onAction="#voltar">
+
+         <font>
+            <Font name="Candara Bold" size="32.0"/>
+         </font>
+
+      </Button>
+
+
+      <!-- ========================= -->
+      <!-- CRÉDITOS -->
+      <!-- ========================= -->
+
+      <Label
+          layoutX="25.0"
+          layoutY="730.0"
+          text="Development credits: Bianca Steffani and Júlia Weber.  Assembly credits: Eduardo Brinckmann, Rafael Domingues, and Rafaela Cislaghi."
+          textFill="#0000b7">
+
+         <font>
+            <Font name="Candara Bold" size="12.0"/>
+         </font>
+
+      </Label>
+
+   </children>
+</Pane>

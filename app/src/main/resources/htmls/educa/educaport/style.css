@@ -1,0 +1,38 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* topo */
+#topo{
+    width:100%;
+    height:200px;
+    background:#0000b7;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#topo h1{
+    color:white;
+    font-size:80px;
+    font-weight:bold;
+}
+
+/* imagem ocupa todo espaço restante */
+#banner-superior{
+    width:100%;
+    height:calc(100vh - 200px);
+    background-image:url("img/educa.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}

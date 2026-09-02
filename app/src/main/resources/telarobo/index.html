@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <title>Painel Tramontina</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- ── HEADER BAR ── -->
+  <header class="header-bar">
+    <img
+      class="logo-img"
+      src="img/tramontina.png"
+      alt="Tramontina"
+    >
+    <div class="header-right">
+      <div class="clock" id="clock">--:--:--</div>
+      <div class="date-label" id="dateLabel">---</div>
+    </div>
+  </header>
+
+  <!-- ── CAROUSEL ── -->
+  <section class="carousel-section">
+    <iframe src="carousel.html" scrolling="no" title="Carrossel de Imagens"></iframe>
+  </section>
+
+  <!-- ── DIVIDER ── -->
+  <div class="divider"></div>
+
+  <!-- ── WEATHER ── -->
+  <section class="weather-section">
+
+    <!-- Current -->
+    <div class="current-weather">
+      <div class="current-left">
+        <div class="city-name">Carlos Barbosa · RS</div>
+        <div class="temp-big" id="tempBig"><span class="loading-pulse">--</span><sup>°C</sup></div>
+        <div class="condition" id="condition">Carregando...</div>
+      </div>
+      <div class="current-right">
+        <div class="weather-icon-big" id="iconBig"><img src="img/thermometer.png" alt="Clima"></div>
+        <div class="feels">Clima Atual</div>
+      </div>
+    </div>
+
+    <!-- Forecast title -->
+    <div class="weather-title">Previsão da Semana</div>
+
+    <!-- 5-day forecast (rendered by JS) -->
+    <div class="forecast-grid" id="forecastGrid">
+      <!-- cards inserted by JS -->
+    </div>
+
+  </section>
+</div>
+
+<script>
+  // ── Clock & Date ──────────────────────────────────────────
+  const diasPT   = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const mesesPT  = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const pad = n  => String(n).padStart(2,'0');
+
+  function tick() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    document.getElementById('dateLabel').textContent =
+      `${diasPT[now.getDay()]}, ${now.getDate()} ${mesesPT[now.getMonth()]} ${now.getFullYear()}`;
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ── Weather (Open-Meteo, sem chave) ───────────────────────
+  // Carlos Barbosa, RS: -29.2939, -51.5028
+  const LAT = -29.2939, LON = -51.5028;
+
+  // WMO weather code → { icon (filename), label }
+  function wmoInfo(code) {
+    if (code === 0)              return { icon:'sunny.png',         label:'Céu Aberto' };
+    if (code <= 2)               return { icon:'partly-cloudy.png', label:'Poucas Nuvens' };
+    if (code === 3)              return { icon:'cloudy.png',        label:'Nublado' };
+    if (code <= 49)              return { icon:'fog.png',           label:'Neblina' };
+    if (code <= 57)              return { icon:'rain.png',          label:'Chuvisco' };
+    if (code <= 65)              return { icon:'rain.png',          label:'Chuva' };
+    if (code <= 77)              return { icon:'snow.png',          label:'Neve' };
+    if (code <= 82)              return { icon:'showers.png',       label:'Pancadas' };
+    if (code <= 86)              return { icon:'snow.png',          label:'Granizo' };
+    if (code <= 99)              return { icon:'storm.png',         label:'Trovoada' };
+    return { icon:'thermometer.png', label:'--' };
+  }
+
+  function weatherImg(filename, alt, cssClass) {
+    return `<img src="img/${filename}" alt="${alt}" class="${cssClass || ''}">`;
+  }
+
+  async function loadWeather() {
+    const url =
+      `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
+      `&current=temperature_2m,weathercode` +
+      `&daily=weathercode,temperature_2m_max,precipitation_probability_max` +
+      `&timezone=America%2FSao_Paulo&forecast_days=5`;
+
+    try {
+      const res  = await fetch(url);
+      const data = await res.json();
+
+      // ── Current ─────────────────────────────────────────
+      const curTemp = Math.round(data.current.temperature_2m);
+      const curCode = data.current.weathercode;
+      const curInfo = wmoInfo(curCode);
+
+      document.getElementById('tempBig').innerHTML = `${curTemp}<sup>°C</sup>`;
+      document.getElementById('condition').textContent = curInfo.label;
+      document.getElementById('iconBig').innerHTML = weatherImg(curInfo.icon, curInfo.label, 'weather-img-big');
+
+      // ── 5-day forecast ───────────────────────────────────
+      const grid   = document.getElementById('forecastGrid');
+      grid.innerHTML = '';
+      const days   = data.daily;
+
+      days.time.forEach((dateStr, i) => {
+        const d     = new Date(dateStr + 'T12:00:00');
+        const label = i === 0 ? 'Hoje' : diasPT[d.getDay()];
+        const info  = wmoInfo(days.weathercode[i]);
+        const temp  = Math.round(days.temperature_2m_max[i]);
+        const rain  = days.precipitation_probability_max[i] ?? 0;
+
+        const card = document.createElement('div');
+        card.className = 'forecast-card' + (i === 0 ? ' today' : '');
+        card.innerHTML = `
+          <div class="fc-day">${label}</div>
+          <div class="fc-icon">${weatherImg(info.icon, info.label, 'weather-img-fc')}</div>
+          <div class="fc-temp">${temp}<sup>°</sup></div>
+          <div class="fc-rain"><img src="img/drop.png" alt="Chuva" class="weather-img-drop"> ${rain}%</div>
+          <div class="fc-rain-bar"><div class="fc-rain-fill" style="width:${rain}%"></div></div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // ── Update time ──────────────────────────────────────
+      // (rodapé removido)
+
+    } catch (err) {
+      console.error('Falha ao buscar clima:', err);
+      document.getElementById('condition').textContent = 'Erro ao carregar';
+    }
+  }
+
+  // Load now, refresh every 15 min
+  loadWeather();
+  setInterval(loadWeather, 15 * 60 * 1000);
+</script>
+
+</body>
+</html>

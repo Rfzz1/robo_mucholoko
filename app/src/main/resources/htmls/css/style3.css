@@ -1,0 +1,632 @@
+/* ==========================================================
+   RESET
+   ========================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ==========================================================
+   CONFIGURAÇÃO GERAL
+   ========================================================== */
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #ffffff;
+
+    overflow-x: hidden;
+}
+
+
+/* ==========================================================
+   PÁGINA
+   ========================================================== */
+
+.pagina {
+    width: 100%;
+    min-height: 100vh;
+
+    background: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ==========================================================
+   CABEÇALHO
+   ========================================================== */
+
+.cabecalho {
+    width: 100%;
+
+    height: 165px;
+
+    flex-shrink: 0;
+
+    background: #0000b7;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.cabecalho h1 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 64px;
+
+    font-weight: bold;
+
+    line-height: 1;
+
+    text-align: center;
+}
+
+
+/* ==========================================================
+   CONTEÚDO
+   ========================================================== */
+
+.conteudo {
+    width: 100%;
+
+    padding: 38px 27px 0 27px;
+
+    background: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
+
+/* ==========================================================
+   CAIXA DE INFORMAÇÃO
+   ========================================================== */
+
+.caixa-informacao {
+    width: 78%;
+
+    min-height: 155px;
+
+    margin: 0 auto 12px auto;
+
+    padding: 22px 42px;
+
+    background: #0000b7;
+
+    border-radius: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+
+.caixa-informacao p {
+    width: 100%;
+
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    line-height: 1.35;
+
+    text-align: center;
+}
+
+
+/* ==========================================================
+   DATA
+   ========================================================== */
+
+.data-atual {
+    width: 100%;
+
+    margin: 2px 0 7px 0;
+
+    padding-right: 5px;
+
+    color: #222222;
+
+    font-size: 18px;
+
+    font-weight: normal;
+
+    line-height: 25px;
+
+    text-align: right;
+
+    flex-shrink: 0;
+}
+
+
+.data-atual strong {
+    font-weight: bold;
+}
+
+
+/* ==========================================================
+   TABELA
+   ========================================================== */
+
+.tabela-container {
+    width: 100%;
+
+    overflow-x: hidden;
+    overflow-y: visible;
+
+    flex-shrink: 0;
+}
+
+
+.tabela-programacao {
+    width: 100%;
+
+    height: auto;
+
+    border-collapse: collapse;
+
+    table-layout: fixed;
+
+    background: #e9e9f2;
+
+    border: 3px solid #0000b7;
+}
+
+
+/* ==========================================================
+   COLUNAS
+   ========================================================== */
+
+.tabela-programacao .col-programacao {
+    width: 70%;
+}
+
+
+.tabela-programacao .col-sala {
+    width: 15%;
+}
+
+
+.tabela-programacao .col-horario {
+    width: 15%;
+}
+
+
+/* ==========================================================
+   CABEÇALHO DA TABELA
+   ========================================================== */
+
+.tabela-programacao thead {
+    height: 68px;
+}
+
+
+.tabela-programacao thead tr {
+    height: 68px;
+}
+
+
+.tabela-programacao th {
+    height: 68px;
+
+    padding: 10px 13px;
+
+    border: 2px solid #0000b7;
+
+    color: #111111;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 27px;
+
+    font-weight: bold;
+
+    line-height: 1.1;
+
+    text-align: left;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+
+    background: #e9e9f2;
+}
+
+
+/* ==========================================================
+   LINHAS
+   ========================================================== */
+
+.tabela-programacao tbody tr {
+    height: auto;
+}
+
+
+/* ==========================================================
+   CÉLULAS
+   ========================================================== */
+
+.tabela-programacao td {
+    min-height: 90px;
+
+    padding: 18px 15px;
+
+    border: 2px solid #0000b7;
+
+    color: #222222;
+
+    font-size: 20px;
+
+    line-height: 1.35;
+
+    text-align: left;
+
+    vertical-align: middle;
+
+    overflow-wrap: break-word;
+
+    background: #e9e9f2;
+}
+
+
+/* ==========================================================
+   SALA
+   ========================================================== */
+
+.tabela-programacao th:nth-child(2),
+.tabela-programacao td:nth-child(2) {
+    text-align: center;
+
+    padding-left: 5px;
+
+    padding-right: 5px;
+}
+
+
+/* ==========================================================
+   HORÁRIO
+   ========================================================== */
+
+.tabela-programacao th:nth-child(3),
+.tabela-programacao td:nth-child(3) {
+    text-align: center;
+
+    padding-left: 5px;
+
+    padding-right: 5px;
+}
+
+
+/* ==========================================================
+   NENHUMA ATIVIDADE
+   ========================================================== */
+
+.tabela-programacao td[colspan="3"] {
+    text-align: center;
+
+    padding: 22px;
+
+    font-size: 18px;
+}
+
+
+/* ==========================================================
+   ERRO DA PLANILHA
+   ========================================================== */
+
+.erro-planilha {
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 14px 15px;
+
+    background: #ffffff;
+
+    border-radius: 8px;
+
+    color: #b00000;
+
+    font-size: 15px;
+
+    line-height: 22px;
+
+    text-align: center;
+}
+
+
+/* ==========================================================
+   ÚLTIMA ATUALIZAÇÃO
+   ========================================================== */
+
+.ultima-atualizacao {
+    width: 100%;
+
+    margin-top: 7px;
+
+    padding-right: 5px;
+
+    color: #555555;
+
+    font-size: 10px;
+
+    line-height: 18px;
+
+    text-align: right;
+
+    flex-shrink: 0;
+}
+
+
+/* ==========================================================
+   LOGO TRAMONTINA
+   ========================================================== */
+
+.logo-tramontina {
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding-bottom: 30px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-shrink: 0;
+}
+
+
+.logo-tramontina img {
+    /*
+     * LOGO MAIOR
+     */
+    width: 300px;
+
+    height: auto;
+
+    max-width: 60%;
+
+    display: block;
+
+    object-fit: contain;
+}
+
+
+/* ==========================================================
+   SCROLLBAR
+   ========================================================== */
+
+.tabela-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+.tabela-container::-webkit-scrollbar-track {
+    background: #e9e9f2;
+}
+
+
+.tabela-container::-webkit-scrollbar-thumb {
+    background: #0000b7;
+
+    border-radius: 10px;
+}
+
+
+/* ==========================================================
+   RESPONSIVIDADE
+   ========================================================== */
+
+@media screen and (max-width: 899px) {
+
+    html,
+    body {
+        height: auto;
+
+        overflow-y: auto;
+    }
+
+
+    /* ======================================================
+       PÁGINA
+       ====================================================== */
+
+    .pagina {
+        width: 100%;
+
+        min-height: 100vh;
+    }
+
+
+    /* ======================================================
+       CABEÇALHO
+       ====================================================== */
+
+    .cabecalho {
+        height: 90px;
+    }
+
+
+    .cabecalho h1 {
+        font-size: 38px;
+    }
+
+
+    /* ======================================================
+       CONTEÚDO
+       ====================================================== */
+
+    .conteudo {
+        padding: 18px 12px 0 12px;
+    }
+
+
+    /* ======================================================
+       CAIXA
+       ====================================================== */
+
+    .caixa-informacao {
+        width: 80%;
+
+        min-height: 90px;
+
+        padding: 12px 20px;
+
+        border-radius: 20px;
+    }
+
+
+    .caixa-informacao p {
+        font-size: 11px;
+
+        line-height: 14px;
+    }
+
+
+    /* ======================================================
+       DATA
+       ====================================================== */
+
+    .data-atual {
+        margin-top: 2px;
+
+        margin-bottom: 5px;
+
+        font-size: 11px;
+
+        line-height: 20px;
+    }
+
+
+    /* ======================================================
+       TABELA
+       ====================================================== */
+
+    .tabela-container {
+        max-height: none;
+
+        overflow-x: auto;
+
+        overflow-y: visible;
+    }
+
+
+    .tabela-programacao {
+        height: auto;
+
+        min-width: 650px;
+    }
+
+
+    .tabela-programacao thead,
+    .tabela-programacao thead tr {
+        height: 35px;
+    }
+
+
+    .tabela-programacao th {
+        height: 35px;
+
+        padding: 5px;
+
+        font-size: 14px;
+    }
+
+
+    .tabela-programacao td {
+        min-height: 65px;
+
+        padding: 8px 5px;
+
+        font-size: 10px;
+    }
+
+
+    /* ======================================================
+       MENSAGEM
+       ====================================================== */
+
+    .tabela-programacao td[colspan="3"] {
+        padding: 10px;
+
+        font-size: 10px;
+    }
+
+
+    /* ======================================================
+       ERRO
+       ====================================================== */
+
+    .erro-planilha {
+        margin-top: 7px;
+
+        padding: 7px;
+
+        font-size: 9px;
+
+        line-height: 14px;
+    }
+
+
+    /* ======================================================
+       ATUALIZAÇÃO
+       ====================================================== */
+
+    .ultima-atualizacao {
+        margin-top: 4px;
+
+        font-size: 6px;
+
+        line-height: 12px;
+    }
+
+
+    /* ======================================================
+       LOGO
+       ====================================================== */
+
+    .logo-tramontina {
+        margin-top: 20px;
+
+        padding-bottom: 20px;
+    }
+
+
+    .logo-tramontina img {
+        width: 180px;
+
+        max-width: 60%;
+    }
+}

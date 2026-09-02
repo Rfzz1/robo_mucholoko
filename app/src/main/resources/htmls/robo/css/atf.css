@@ -1,0 +1,173 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #dfdfed;
+    font-family: 'Aoboshi One', serif;
+}
+
+/* CONTAINER PRINCIPAL */
+#container{
+    width:1080px;
+    min-height:100vh;
+    margin:auto;
+    background:#dfdfed;
+
+    display:flex;
+    flex-direction:column;
+}
+
+/* TOPO */
+#topo {
+    width: 100%;
+    height: 200px;
+    background-color: rgba(0, 0, 183, 0.85);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    margin: 0;
+}
+
+.imagemtopo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.imagemtopo img {
+    width: 160px;
+}
+
+#topo h2 {
+    font-size: 80px;
+    margin: 0;
+}
+
+#topo h3 {
+    font-size: 35px;
+    margin: 5px 0;
+    color: #2df6fa;
+}
+
+/* BLOCO IMAGEM + TEXTO */
+.bloco-img-texto {
+    display: flex;
+    align-items: center;
+    background-color: #0000b7;
+    border-radius: 20px;
+    margin-top: 35px; /* diminui espaço entre blocos */
+    padding: 18px;
+    gap: 20px; /* aproxima imagem e texto */
+}
+
+.imagem1 img {
+    width: 230px;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* TEXTO AO LADO */
+#textodoladodaimg {
+    color: white;
+    font-size: 30px;
+    line-height: 1.3;
+    padding: 5px;
+    margin: 0;
+}
+
+#textodoladodaimg p {
+    margin: 0;
+}
+
+/* CONTEÚDO */
+#conteudo{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-evenly;
+    padding:18px;
+}
+
+/* BLOCO INICIAL E FINAL */
+.bloco-inicial,
+.bloco-final {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* aproxima imagem e texto */
+}
+
+.imagem-inicial img,
+.imagem-final img {
+    width: 280px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* TEXTOS */
+.texto-inicial,
+.texto-final {
+    padding: 0;
+    margin: 0;
+	font-size:32px;
+}
+
+/* TÍTULO BLOCO inicial*/
+.texto-inicial h2 {
+    color: #0000b7;
+    font-size: 32px;
+    margin: 0 0 8px 0;
+}
+
+.texto-inicial p,
+.texto-final p {
+    font-size: 30px;
+    color: #000931;
+    text-align: justify;
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* TÍTULO BLOCO FINAL */
+.texto-final h2 {
+    color: #0000b7;
+    font-size: 32px;
+    margin: 0 0 8px 0;
+}
+
+/* RESERVA */
+.textoreserva {
+    color: white;
+    padding: px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.textoreserva h3 {
+    font-size: 33px;
+    margin: 0 0 10px 0;
+}
+
+.textoreserva p {
+    font-size: 30px;
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* RODAPÉ */
+#rodape{
+    width:100%;
+    height:65px;
+    background:#0000b7;
+    margin-top:auto;
+}

@@ -1,0 +1,149 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #dfdfed;
+    font-family: 'Aoboshi One', serif;
+}
+
+/* CONTAINER PRINCIPAL */
+#container {
+    max-width: 1080px;
+    margin: 0 auto;
+    background-color: #dfdfed;
+    overflow: hidden;
+}
+
+/* TOPO */
+#topo {
+    width: 100%;
+    height: 200px;
+    background-color: rgba(0, 0, 183, 0.85);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    margin: 0;
+}
+
+.imagemtopo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.imagemtopo img {
+    width: 120px;
+}
+
+#topo h2 {
+    font-size: 90px;
+    margin: 0;
+}
+
+#topo h3 {
+    font-size: 35px;
+    margin: 5px 0;
+    color: #2df6fa;
+}
+
+/* BLOCO IMAGEM + TEXTO */
+.bloco-img-texto {
+    display: flex;
+    background-color: #0000b7;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.imagem1 img {
+    width: 230px;
+    height: 270px;
+    margin-left: 15px;
+}
+
+#textodoladodaimg {
+    color: white;
+    font-size: 28px;
+    line-height: 1.5;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* CONTEÚDO */
+#conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* BLOCO INICIAL */
+.bloco-inicial,
+.bloco-final {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.imagem-inicial img,
+.imagem-final img {
+    width: 280px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.texto-inicial p,
+.texto-final p {
+    font-size: 28px;
+    color: #000931;
+    text-align: justify;
+    margin: 0;
+}
+
+/* TÍTULO DO BLOCO FINAL */
+.texto-final h2 {
+    color: #0000b7;
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+/* RESERVA */
+.textoreserva {
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.textoreserva h3 {
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.textoreserva p {
+    font-size: 24px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* RODAPÉ */
+#rodape {
+    width: 100%;
+    height: 90px;
+    background-color: rgba(0, 0, 183, 0.85);
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
