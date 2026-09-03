@@ -8,10 +8,11 @@ import javafx.scene.Node
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.stage.Stage
+import java.io.File
 
 class Senai {
 
-    private fun abrirVideo(event: ActionEvent, caminhoVideo: String, caminhoRetorno: String, tituloDaTela: String) {
+    private fun abrirVideo(event: ActionEvent, caminhoVideo: File, caminhoRetorno: String, tituloDaTela: String) {
         try {
             val loader = FXMLLoader(javaClass.getResource("/videos/TelaVideo.fxml"))
             val root: Parent = loader.load()
@@ -30,14 +31,17 @@ class Senai {
         }
     }
 
-    private fun obterCaminhoVideoSenai(nomeBase: String): String {
+    private fun obterCaminhoVideoSenai(nomeBase: String): File {
         val sufixo = when (Sessao.idiomaEscolhido) {
             "pt" -> "port"
             "en" -> "eng"
             "esp" -> "esp"
             else -> "port"
         }
-        return "/senai/videosSenai/${nomeBase}_${sufixo}.mp4" 
+
+        val caminhoVideo = File(System.getProperty("user.dir"), "videos/videoSenai/${nomeBase}${sufixo}.mp4")
+
+        return caminhoVideo
     }
 
     private fun obterTelaRetornoSenai(): String {

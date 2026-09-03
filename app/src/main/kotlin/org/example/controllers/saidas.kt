@@ -8,10 +8,11 @@ import javafx.scene.Node
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.stage.Stage
+import java.io.File
 
 class saidas {
 
-    private fun abrirVideo(event: ActionEvent, caminhoVideo: String, caminhoRetorno: String, tituloDaTela: String) {
+    private fun abrirVideo(event: ActionEvent, caminhoVideo: File, caminhoRetorno: String, tituloDaTela: String) {
         try {
             val loader = FXMLLoader(javaClass.getResource("/videos/TelaVideo.fxml"))
             val root: Parent = loader.load()
@@ -30,8 +31,11 @@ class saidas {
         }
     }
 
-    private fun obterCaminhoVideoSaida(nomeBase: String): String {
-        return "/saidasdeemergencia/videosSaidas/${nomeBase}.mp4"
+    private fun obterCaminhoVideoSaida(nomeBase: String): File {
+
+        val caminhoVideosaida = File(System.getProperty("user.dir"), "videos/videoSaidas/${nomeBase}.mp4")
+
+        return caminhoVideosaida
     }
 
     private fun obterTelaDeVolta(): String {

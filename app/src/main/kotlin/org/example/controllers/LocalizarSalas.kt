@@ -9,10 +9,11 @@ import javafx.scene.Scene
 import javafx.stage.Stage
 import org.example.utils.Navegador
 import org.example.model.Sessao // Importante para pegarmos o idioma!
+import java.io.File
 
 class LocalizarSalas {
 
-    private fun abrirVideo(event: ActionEvent, caminhoVideo: String, caminhoRetorno: String, tituloDaTela: String) {
+    private fun abrirVideo(event: ActionEvent, caminhoVideo: File, caminhoRetorno: String, tituloDaTela: String) {
         try {
             val loader = FXMLLoader(javaClass.getResource("/videos/TelaVideo.fxml"))
             val root: Parent = loader.load()
@@ -33,7 +34,7 @@ class LocalizarSalas {
 
     // Recebe as 3 traduções e descobre qual usar na hora de tocar o vídeo
     private fun abrirVideoSala(event: ActionEvent, nomeBase: String, pt: String, en: String, esp: String) {
-        val caminhoVideo = "/salas/videosLocalizaSalas/${nomeBase}.mp4" 
+        val caminhoVideo = File(System.getProperty("user.dir"), "videos/videoSalas/${nomeBase}.mp4")
         
         val sufixo = Navegador.obterSufixoIdioma(padrao = "_port", ing = "_ing", esp = "_esp")
         val caminhoRetorno = "/salas/Localizar_salas_G$sufixo.fxml"
