@@ -19,7 +19,7 @@
     style="-fx-background-color: #dfdfeb;"
     xmlns="http://javafx.com/javafx/26"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="org.example.Senai">
+    fx:controller="org.example.controllers.Senai">
 
    <children>
 

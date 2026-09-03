@@ -1,5 +1,6 @@
 package org.example
 
+import org.example.model.Sessao
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent

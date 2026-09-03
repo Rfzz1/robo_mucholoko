@@ -16,7 +16,7 @@
       style="-fx-background-color: #dfdfeb;"
       xmlns="http://javafx.com/javafx/26"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.TerceiraPagina">
+      fx:controller="org.example.controllers.TerceiraPagina">
 
    <!-- LOGO -->
    <ImageView fitHeight="560.0"

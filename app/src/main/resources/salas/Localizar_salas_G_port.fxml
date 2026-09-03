@@ -17,7 +17,7 @@
       style="-fx-background-color: #dfdfeb;"
       xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.LocalizarSalas">
+      fx:controller="org.example.controllers.LocalizarSalas">
 
    <children>
 

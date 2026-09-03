@@ -17,7 +17,7 @@
       style="-fx-background-color: #dfdfeb;"
       xmlns="http://javafx.com/javafx/26"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.VideoSala">
+      fx:controller="org.example.controllers.TelaVideoController">
 
    <children>
 
@@ -29,17 +29,18 @@
             style="-fx-background-color: #0000b7;">
 
          <children>
-            <Label layoutX="0.0"
-                   layoutY="10.0"
-                   prefHeight="95.0"
-                   prefWidth="1366.0"
-                   alignment="CENTER"
-                   text="Salas 3 e 4"
-                   textFill="WHITE">
-               <font>
-                  <Font name="Sitka Banner Bold" size="70.0" />
-               </font>
-            </Label>
+            <Label fx:id="lblTitulo"
+             layoutX="0.0"
+             layoutY="10.0"
+             prefHeight="95.0"
+             prefWidth="1366.0"
+             alignment="CENTER"
+             text=""
+             textFill="WHITE">
+         <font>
+            <Font name="Sitka Banner Bold" size="70.0" />
+         </font>
+      </Label>
          </children>
       </Pane>
 
@@ -67,7 +68,7 @@
             style="-fx-background-color: black; -fx-background-radius: 10px;">
 
          <children>
-            <MediaView fx:id="videoView"
+            <MediaView fx:id="mediaView"
                        fitHeight="540.0"
                        fitWidth="1206.0"
                        layoutX="0.0"

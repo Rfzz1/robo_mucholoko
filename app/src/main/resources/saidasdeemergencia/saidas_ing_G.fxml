@@ -18,7 +18,7 @@
     style="-fx-background-color: #dfdfeb;"
     xmlns="http://javafx.com/javafx/25"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="org.example.saidas">
+    fx:controller="org.example.controllers.saidas">
 
     <children>
 
@@ -29,104 +29,93 @@
         <Pane
             layoutX="0.0"
             layoutY="0.0"
-            prefHeight="110.0"
+            prefHeight="120.0"
             prefWidth="1366.0"
             style="-fx-background-color: #0000b7;">
 
             <children>
 
                 <Label
-                    layoutX="447.0"
-                    layoutY="18.0"
+                    layoutX="425.0"
+                    layoutY="22.0"
                     text="Emergency exits"
                     textFill="WHITE">
 
                     <font>
                         <Font
                             name="Cambria Bold"
-                            size="62.0"/>
+                            size="60.0"/>
                     </font>
 
                 </Label>
 
             </children>
+
         </Pane>
 
-
         <!-- ========================= -->
-        <!-- CAIXA DE INFORMAÇÕES -->
+        <!-- PAINEL DE INFORMAÇÕES -->
         <!-- ========================= -->
 
-        <Button
-            layoutX="100.0"
-            layoutY="135.0"
-            mnemonicParsing="false"
-            prefHeight="210.0"
-            prefWidth="1166.0"
+        <Pane
+            layoutX="55.0"
+            layoutY="145.0"
+            prefHeight="220.0"
+            prefWidth="1256.0"
             style="-fx-background-radius: 30px;
-                   -fx-background-color: #0000b7;"
-            textFill="WHITE"
-            mouseTransparent="true">
+                   -fx-background-color: #0000b7;">
 
-            <font>
-                <Font
-                    name="Candara Bold"
-                    size="40.0"/>
-            </font>
+            <children>
 
-        </Button>
+                <Text
+                    fill="WHITE"
+                    layoutX="35.0"
+                    layoutY="45.0"
+                    strokeType="OUTSIDE"
+                    strokeWidth="0.0"
+                    text="In case of an emergency, remain calm and follow the safety instructions to evacuate quickly, orderly, and safely. Use the nearest emergency exit, following the signs and the instructions of the people responsible for the premises."
+                    wrappingWidth="1180.0">
 
+                    <font>
+                        <Font
+                            name="Candara"
+                            size="23.0"/>
+                    </font>
 
-        <!-- TEXTO 1 -->
+                </Text>
 
-        <Text
-            fill="WHITE"
-            layoutX="125.0"
-            layoutY="175.0"
-            strokeType="OUTSIDE"
-            strokeWidth="0.0"
-            text="In case of an emergency, remain calm and follow the safety instructions to evacuate quickly, orderly, and safely. Use the nearest emergency exit, following the signs and the instructions of the people responsible for the premises."
-            wrappingWidth="1110.0">
+                <Text
+                    fill="WHITE"
+                    layoutX="35.0"
+                    layoutY="145.0"
+                    strokeType="OUTSIDE"
+                    strokeWidth="0.0"
+                    text="To be prepared, check out the videos below, which show the emergency exit routes and help you become familiar with the paths to the outside of the premises."
+                    wrappingWidth="1180.0">
 
-            <font>
-                <Font
-                    name="Candara"
-                    size="24.0"/>
-            </font>
+                    <font>
+                        <Font
+                            name="Candara"
+                            size="23.0"/>
+                    </font>
 
-        </Text>
+                </Text>
 
-
-        <!-- TEXTO 2 -->
-
-        <Text
-            fill="WHITE"
-            layoutX="125.0"
-            layoutY="285.0"
-            strokeType="OUTSIDE"
-            strokeWidth="0.0"
-            text="To be prepared, check out the videos below, which show the emergency exit routes and help you become familiar with the paths to the outside of the premises."
-            wrappingWidth="1110.0">
-
-            <font>
-                <Font
-                    name="Candara"
-                    size="24.0"/>
-            </font>
-
-        </Text>
-
+            </children>
+        </Pane>
 
         <!-- ========================= -->
-        <!-- BOTÕES -->
+        <!-- SAÍDAS DE EMERGÊNCIA -->
         <!-- ========================= -->
+
+        <!-- ELEVADOR -->
 
         <Button
-            layoutX="80.0"
-            layoutY="375.0"
+            layoutX="55.0"
+            layoutY="395.0"
             mnemonicParsing="false"
-            prefHeight="62.0"
-            prefWidth="580.0"
+            prefHeight="55.0"
+            prefWidth="600.0"
             style="-fx-background-radius: 30px;
                    -fx-background-color: #0000b7;"
             text="Emergency exit near the elevator"
@@ -141,13 +130,14 @@
 
         </Button>
 
+        <!-- BEM-ESTAR -->
 
         <Button
-            layoutX="706.0"
-            layoutY="375.0"
+            layoutX="55.0"
+            layoutY="470.0"
             mnemonicParsing="false"
-            prefHeight="62.0"
-            prefWidth="580.0"
+            prefHeight="55.0"
+            prefWidth="600.0"
             style="-fx-background-radius: 30px;
                    -fx-background-color: #0000b7;"
             text="Emergency exit — Wellness"
@@ -162,13 +152,14 @@
 
         </Button>
 
+        <!-- SEGUNDO ANDAR -->
 
         <Button
-            layoutX="80.0"
-            layoutY="460.0"
+            layoutX="55.0"
+            layoutY="545.0"
             mnemonicParsing="false"
-            prefHeight="62.0"
-            prefWidth="580.0"
+            prefHeight="55.0"
+            prefWidth="600.0"
             style="-fx-background-radius: 30px;
                    -fx-background-color: #0000b7;"
             text="Emergency exit — second floor"
@@ -183,13 +174,14 @@
 
         </Button>
 
+        <!-- AUDITÓRIO -->
 
         <Button
-            layoutX="706.0"
-            layoutY="460.0"
+            layoutX="711.0"
+            layoutY="395.0"
             mnemonicParsing="false"
-            prefHeight="62.0"
-            prefWidth="580.0"
+            prefHeight="55.0"
+            prefWidth="600.0"
             style="-fx-background-radius: 30px;
                    -fx-background-color: #0000b7;"
             text="Emergency exit — auditorium"
@@ -204,36 +196,16 @@
 
         </Button>
 
-
-        <!-- ========================= -->
-        <!-- IMAGEM -->
-        <!-- ========================= -->
-
-        <ImageView
-            fitHeight="190.0"
-            fitWidth="250.0"
-            layoutX="558.0"
-            layoutY="535.0"
-            pickOnBounds="true"
-            preserveRatio="true">
-
-            <image>
-                <Image url="@ChatGPT%20Image%2025%20de%20ago.%20de%202026,%2016_10_10.png"/>
-            </image>
-
-        </ImageView>
-
-
         <!-- ========================= -->
         <!-- VOLTAR -->
         <!-- ========================= -->
 
         <Button
-            layoutX="483.0"
-            layoutY="650.0"
+            layoutX="711.0"
+            layoutY="470.0"
             mnemonicParsing="false"
-            prefHeight="58.0"
-            prefWidth="400.0"
+            prefHeight="55.0"
+            prefWidth="600.0"
             style="-fx-background-radius: 30px;
                    -fx-background-color: #ff751f;"
             text="Back"
@@ -243,18 +215,35 @@
             <font>
                 <Font
                     name="Candara Bold"
-                    size="28.0"/>
+                    size="25.0"/>
             </font>
 
         </Button>
 
+        <!-- ========================= -->
+        <!-- IMAGEM -->
+        <!-- ========================= -->
+
+        <ImageView
+            fitHeight="145.0"
+            fitWidth="150.0"
+            layoutX="1120.0"
+            layoutY="600.0"
+            pickOnBounds="true"
+            preserveRatio="true">
+
+            <image>
+                <Image url="@ChatGPT%20Image%2025%20de%20ago.%20de%202026,%2016_10_10.png"/>
+            </image>
+
+        </ImageView>
 
         <!-- ========================= -->
         <!-- CRÉDITOS -->
         <!-- ========================= -->
 
         <Label
-            layoutX="80.0"
+            layoutX="40.0"
             layoutY="735.0"
             text="Development credits: Bianca Steffani and Júlia Weber. Assembly credits: Eduardo Brinckmann, Rafael Domingues, and Rafaela Cislaghi."
             textFill="#0000b7">
@@ -262,7 +251,7 @@
             <font>
                 <Font
                     name="Candara Bold"
-                    size="12.0"/>
+                    size="11.0"/>
             </font>
 
         </Label>
