@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.image.Image?>
+
+<?import javafx.scene.image.ImageView?>
+
+<?import javafx.scene.layout.Pane?>
+
+<?import javafx.scene.text.Font?>
+
+<Pane
+ fx:id="painelPrincipal"
+ maxHeight="-Infinity"
+ maxWidth="-Infinity"
+ minHeight="-Infinity"
+ minWidth="-Infinity"
+ prefHeight="768.0"
+ prefWidth="1366.0"
+ style="-fx-background-color: #dfdfeb;"
+ xmlns="http://javafx.com/javafx/21"
+ xmlns:fx="http://javafx.com/fxml/1"
+ fx:controller="org.example.TerceiraPagina">
+
+<children>
+
+    <!-- ================================================= -->
+    <!-- CABEÇALHO -->
+    <!-- ================================================= -->
+
+    <Pane
+        layoutX="0.0"
+        layoutY="0.0"
+        prefHeight="115.0"
+        prefWidth="1366.0"
+        style="-fx-background-color: #0000b7;">
+
+        <children>
+
+            <Label
+                layoutX="0.0"
+                layoutY="15.0"
+                prefWidth="1366.0"
+                prefHeight="85.0"
+                alignment="CENTER"
+                text="CeitBot"
+                textFill="WHITE">
+
+                <font>
+                    <Font
+                        name="Candara Bold"
+                        size="58.0"/>
+                </font>
+
+            </Label>
+
+        </children>
+
+    </Pane>
+
+
+    <!-- ================================================= -->
+    <!-- IMAGEM CENTRAL -->
+    <!-- ================================================= -->
+
+    <ImageView
+        fitHeight="500.0"
+        fitWidth="500.0"
+        layoutX="433.0"
+        layoutY="140.0"
+        pickOnBounds="true"
+        preserveRatio="true">
+
+        <image>
+            <Image url="@fundoT.png"/>
+        </image>
+
+    </ImageView>
+
+
+    <!-- ================================================= -->
+    <!-- COLUNA ESQUERDA -->
+    <!-- ================================================= -->
+
+    <!-- WELLNESS -->
+
+    <Button
+        layoutX="40.0"
+        layoutY="170.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #0000b7;"
+        text="Wellness Assistance"
+        textFill="WHITE"
+        onAction="#abrirBemEstar">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- TODAY'S PROGRAM -->
+
+    <Button
+        layoutX="40.0"
+        layoutY="250.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #0000b7;"
+        text="Today's Program"
+        textFill="WHITE"
+        onAction="#abrirProgramacaoDiaria">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- CEIT -->
+
+    <Button
+        layoutX="40.0"
+        layoutY="330.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #0000b7;"
+        text="CEIT"
+        textFill="WHITE"
+        onAction="#abrirCeit">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- ATF -->
+
+    <Button
+        layoutX="40.0"
+        layoutY="410.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #0000b7;"
+        text="ATF"
+        textFill="WHITE"
+        onAction="#abrirAtf">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- PET -->
+
+    <Button
+        layoutX="40.0"
+        layoutY="490.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #0000b7;"
+        text="PET"
+        textFill="WHITE"
+        onAction="#abrirPet">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- ACCESSIBILITY -->
+
+    <Button
+        layoutX="40.0"
+        layoutY="570.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #0000b7;"
+        text="Accessibility"
+        textFill="WHITE"
+        onAction="#abrirAcessibilidade">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- ================================================= -->
+    <!-- COLUNA DIREITA -->
+    <!-- ================================================= -->
+
+    <!-- FIND ROOMS -->
+
+    <Button
+        layoutX="936.0"
+        layoutY="170.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #0000b7;"
+        text="Find Rooms"
+        textFill="WHITE"
+        onAction="#irParaLocalizarSalas">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- EDUCA + -->
+
+    <Button
+        layoutX="936.0"
+        layoutY="250.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #0000b7;"
+        text="Educa +"
+        textFill="WHITE"
+        onAction="#abrirEduca">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- GAME -->
+
+    <Button
+        layoutX="936.0"
+        layoutY="330.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #0000b7;"
+        text="GAME"
+        textFill="WHITE"
+        onAction="#iniciarJogo">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- SENAI -->
+
+    <Button
+        layoutX="936.0"
+        layoutY="410.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #0000b7;"
+        text="SENAI"
+        textFill="WHITE"
+        onAction="#abrirSenai">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- EMERGENCY EXITS -->
+
+    <Button
+        layoutX="936.0"
+        layoutY="490.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #0000b7;"
+        text="Emergency Exits"
+        textFill="WHITE"
+        onAction="#abrirSaida">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- END SESSION -->
+
+    <Button
+        layoutX="936.0"
+        layoutY="570.0"
+        mnemonicParsing="false"
+        prefHeight="58.0"
+        prefWidth="390.0"
+        style="-fx-background-radius: 25px; -fx-background-color: #ff751f;"
+        text="End Session"
+        textFill="WHITE"
+        onAction="#voltarParaRosto">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="24.0"/>
+        </font>
+
+    </Button>
+
+
+    <!-- ================================================= -->
+    <!-- CRÉDITOS -->
+    <!-- ================================================= -->
+
+    <Label
+        layoutX="40.0"
+        layoutY="690.0"
+        prefWidth="1286.0"
+        alignment="CENTER"
+        text="Development Credits: Bianca Steffani and Júlia Weber. Assembly Credits: Eduardo Brinckmann, Rafael Domingues and Rafaela Cislaghi."
+        textFill="#0000b7">
+
+        <font>
+            <Font
+                name="Candara Bold"
+                size="14.0"/>
+        </font>
+
+    </Label>
+
+</children>
+
+
+</Pane>

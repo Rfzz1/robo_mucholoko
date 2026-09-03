@@ -1,0 +1,163 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #dfdfed;
+    font-family: 'Aoboshi One', serif;
+}
+
+/* CONTAINER PRINCIPAL */
+#container {
+    max-width: 1080px;
+    margin: 0 auto;
+    background-color: #dfdfed;
+    overflow: hidden;
+}
+
+/* TOPO */
+#topo {
+    width: 100%;
+    height: 325px;
+    background-color: rgba(0, 0, 183, 0.85);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+}
+
+.imagemtopo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.imagemtopo img {
+    width: 120px;
+}
+
+/* TEXTOS TOPO */
+#topo h2 {
+    font-size: 60px;
+    margin: 0;
+}
+
+#topo h3 {
+    font-size: 35px;
+    margin: 5px 0;
+    color: #2df6fa;
+}
+
+#topo h4 {
+    font-size: 28px;
+    margin: 0;
+}
+
+/* CONTEÚDO */
+#conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* BLOCO INICIAL */
+.bloco-inicial {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.imagem-inicial img {
+    width: 380px;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.texto-inicial p {
+    font-size: 31px;
+    color: #000931;
+    text-align: justify;
+    margin: 0;
+}
+
+/* BLOCO IMAGEM + TEXTO */
+.bloco-img-texto {
+    display: flex;
+    background-color: #0000b7;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.imagem1 img {
+    width: 400px;
+    height: 380px;
+    object-fit: cover;
+}
+
+/* TEXTO AO LADO */
+#textodoladodaimg {
+    color: white;
+    font-size: 28px;
+    line-height: 1.5;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+/* BLOCO FINAL */
+.bloco-final {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.texto-final {
+    font-size: 31px;
+    text-align: justify;
+	color:#000931;
+}
+
+.imagem-final img {
+    width: 400px;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* RODAPÉ */
+#final {
+    width: 100%;
+    background-color: rgba(0, 0, 183, 0.85);
+    color: white;
+    padding: 20px;
+    position: relative;
+	height:300px;
+	 line-height: 1.5; /* aumenta o espaço entre as linhas */
+}
+}
+
+#final h2 {
+    font-size: 28px;
+    margin: 5px 0;
+	
+}
+
+/* QR CODE */
+.imagemqrcode {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+.imagemqrcode img {
+    width: 230px;
+	height:230px;
+}

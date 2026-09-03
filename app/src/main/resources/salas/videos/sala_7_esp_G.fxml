@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity"
+      maxWidth="-Infinity"
+      minHeight="-Infinity"
+      minWidth="-Infinity"
+      prefHeight="768.0"
+      prefWidth="1366.0"
+      style="-fx-background-color: #dfdfeb;"
+      xmlns="http://javafx.com/javafx/26"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.VideoSala">
+
+   <children>
+
+      <!-- ================================================= -->
+      <!-- FAIXA AZUL DO TÍTULO -->
+      <!-- ================================================= -->
+      <Pane prefHeight="110.0"
+            prefWidth="1366.0"
+            style="-fx-background-color: #0000b7;">
+
+         <children>
+            <Label layoutX="0.0"
+                   layoutY="10.0"
+                   prefHeight="90.0"
+                   prefWidth="1366.0"
+                   alignment="CENTER"
+                   text="Sala 7"
+                   textFill="WHITE">
+
+               <font>
+                  <Font name="Sitka Banner Bold" size="72.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+
+      <!-- ================================================= -->
+      <!-- LOGO TRAMONTINA -->
+      <!-- ================================================= -->
+      <ImageView fitHeight="500.0"
+                 fitWidth="540.0"
+                 layoutX="826.0"
+                 layoutY="100.0"
+                 pickOnBounds="true"
+                 preserveRatio="true">
+
+         <image>
+            <Image url="@../../Downloads/fundoT.png" />
+         </image>
+      </ImageView>
+
+      <!-- ================================================= -->
+      <!-- ÁREA DO VÍDEO -->
+      <!-- ================================================= -->
+      <Pane layoutX="50.0"
+            layoutY="140.0"
+            prefHeight="500.0"
+            prefWidth="1266.0"
+            style="-fx-background-color: black; -fx-background-radius: 10px;">
+
+         <children>
+            <MediaView fx:id="videoView"
+                       fitHeight="500.0"
+                       fitWidth="1266.0"
+                       layoutX="0.0"
+                       layoutY="0.0"
+                       preserveRatio="false"
+                       smooth="true" />
+         </children>
+      </Pane>
+
+      <!-- ================================================= -->
+      <!-- NOME DO VÍDEO -->
+      <!-- ================================================= -->
+      <Label fx:id="caminhoVideo"
+             text="sala7.mp4"
+             visible="false" />
+
+      <!-- ================================================= -->
+      <!-- CRÉDITOS -->
+      <!-- ================================================= -->
+      <Label layoutX="50.0"
+             layoutY="665.0"
+             prefWidth="1050.0"
+             wrapText="true"
+             text="Créditos de Desenvolvimento: Bianca Steffani e Júlia Weber. Créditos da montagem: Eduardo Brinckmann, Rafael Domingues e Rafaela Cislaghi."
+             textFill="#0000b7">
+
+         <font>
+            <Font name="Candara Bold" size="16.0" />
+         </font>
+      </Label>
+
+      <!-- ================================================= -->
+      <!-- BOTÃO VOLTAR -->
+      <!-- ================================================= -->
+      <Button layoutX="1160.0"
+              layoutY="665.0"
+              mnemonicParsing="false"
+              onAction="#voltarParaLocalizarSalas"
+              prefHeight="45.0"
+              prefWidth="150.0"
+              style="-fx-background-radius: 30px; -fx-background-color: #ff751f;"
+              text="Volver"
+              textFill="WHITE">
+
+         <font>
+            <Font name="Candara Bold" size="22.0" />
+         </font>
+      </Button>
+
+   </children>
+</Pane>

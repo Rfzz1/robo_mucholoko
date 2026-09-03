@@ -1,0 +1,94 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #dfdfed;
+    font-family: 'Aoboshi One', serif;
+}
+
+/* CONTAINER PRINCIPAL */
+#container{
+    width:1080px;
+    min-height:100vh;
+    margin:auto;
+    background:#dfdfed;
+
+    display:flex;
+    flex-direction:column;
+}
+#conteudo { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-evenly; 
+    padding: 40px 60px;
+}
+
+/* TOPO */
+#topo {
+    width: 100%;
+    height: 200px;
+    background-color: rgba(0, 0, 183, 0.85);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    margin: 0;
+}
+
+.imagemtopo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.imagemtopo img {
+    width: 160px;
+}
+
+#topo h2 {
+    font-size: 80px;
+    margin: 0;
+}
+
+/* IMAGENS EM ZIGUE-ZAGUE */
+
+.imagens-zigue-zague {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.imagem-zig {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.imagem-zag {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.imagem-zig img,
+.imagem-zag img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+/* RODAPÉ */
+#rodape{
+    width:100%;
+    height:25px;
+    background:#0000b7;
+    margin-top:auto;
+}

@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Aoboshi+One&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+:root {
+    --azul-normal: #0000b7;
+    --branco: #ffffff;
+    --preto: #000931;
+    --branco-cinza: #dfdfeb;
+    --ciano: #5ce1e6;
+}
+
+/* Bem-Estar */
+
+body {
+    background-color: var(--branco-cinza);
+}
+
+.menu {
+    background-color: var(--azul-normal);
+    width: 100%;
+    height: 400px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 0%;
+    left: 50%;
+    z-index: 0;
+}
+
+h1, h3, h5 {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-family: 'Aoboshi One';
+}
+
+h1 {color: var(--branco); top: 62%; left: 75.5%; font-size: 60px; width: 70%;}
+h3 {color: var(--ciano); top: 77%; left: 66%; font-size: 45px; width: 80%;}
+h5 {color: var(--branco); top: 94%; left:65%; font-size: 30px; width: 55%;}
+
+.logo {
+    width: 23%;
+    height: auto;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 75%;
+    left: 15%;
+}
+
+.prog {
+    background-color: var(--azul-normal);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 15%;
+    left: 50%;
+    width: 90%;
+    height: 150px;
+    border-radius: 30px;
+}
+
+.prog_texto {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-family: 'Aoboshi One';
+    font-size: 22px;
+    text-align: justify; 
+    font-weight: bold;
+    color: var(--branco); 
+    top: 50%; 
+    left: 50%; 
+    width: 95%;
+}
+
+.programa {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 25%; 
+    left: 50%; 
+    border-collapse: collapse;
+    font-size: 50px;
+    width: 90%;
+}
+
+th, td {
+    padding: 2px;
+    text-align: center;
+    border: 6px solid var(--preto);
+}
+
+th {
+    background-color: var(--azul-normal);
+    color: var(--branco-cinza);
+}
+
+.title {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 62%; 
+    left: 90%;
+}
+
+.subtitle {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 77%; 
+    left: 69%;
+}
+
+.titulo {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 62%; 
+    left: 93.25%;
+}
