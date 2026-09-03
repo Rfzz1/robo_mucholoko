@@ -1,632 +1,847 @@
-/* ==========================================================
-   RESET
-   ========================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Aoboshi+One&display=swap');
+
+
 
 * {
-    box-sizing: border-box;
+
     margin: 0;
+
     padding: 0;
+
+    border: 0;
+
 }
 
 
-/* ==========================================================
-   CONFIGURAÇÃO GERAL
-   ========================================================== */
 
-html {
-    width: 100%;
-    height: 100%;
+:root {
+
+    --azul-normal: #0000b7;
+
+    --branco: #ffffff;
+
+    --preto: #000931;
+
+    --branco-cinza: #dfdfeb;
+
+    --ciano: #5ce1e6;
+
 }
+
+
+
+/* Bem-Estar */
+
 
 
 body {
-    width: 100%;
-    min-height: 100vh;
 
-    margin: 0;
-    padding: 0;
+    background-color: var(--branco-cinza);
 
-    font-family: Arial, Helvetica, sans-serif;
-
-    background: #ffffff;
-
-    overflow-x: hidden;
 }
 
 
-/* ==========================================================
-   PÁGINA
-   ========================================================== */
 
-.pagina {
-    width: 100%;
-    min-height: 100vh;
+.menu {
 
-    background: #ffffff;
+    background-color: var(--azul-normal);
 
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* ==========================================================
-   CABEÇALHO
-   ========================================================== */
-
-.cabecalho {
     width: 100%;
 
-    height: 165px;
+    height: 400px;
 
-    flex-shrink: 0;
+    position: absolute;
 
-    background: #0000b7;
+    transform: translate(-50%, -50%);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    top: 0%;
+
+    left: 50%;
+
+    z-index: 0;
+
 }
 
 
-.cabecalho h1 {
-    margin: 0;
 
-    color: #ffffff;
+h1, h3, h5 {
 
-    font-family: Georgia, "Times New Roman", serif;
+    position: absolute;
 
-    font-size: 64px;
+    transform: translate(-50%, -50%);
 
-    font-weight: bold;
+    font-family: 'Aoboshi One';
 
-    line-height: 1;
-
-    text-align: center;
 }
 
 
-/* ==========================================================
-   CONTEÚDO
-   ========================================================== */
 
-.conteudo {
-    width: 100%;
+h1 {color: var(--branco); top: 62%; left: 70%; font-size: 60px; width: 70%;}
 
-    padding: 38px 27px 0 27px;
+h3 {color: var(--ciano); top: 77%; left: 81%; font-size: 45px; width: 80%;}
 
-    background: #ffffff;
-
-    display: flex;
-    flex-direction: column;
-
-    flex: 1;
-}
+h5 {color: var(--branco); top: 94%; left:71.5%; font-size: 30px; width: 55%;}
 
 
-/* ==========================================================
-   CAIXA DE INFORMAÇÃO
-   ========================================================== */
 
-.caixa-informacao {
-    width: 78%;
+.logo {
 
-    min-height: 155px;
-
-    margin: 0 auto 12px auto;
-
-    padding: 22px 42px;
-
-    background: #0000b7;
-
-    border-radius: 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-}
-
-
-.caixa-informacao p {
-    width: 100%;
-
-    color: #ffffff;
-
-    font-size: 18px;
-
-    font-weight: bold;
-
-    line-height: 1.35;
-
-    text-align: center;
-}
-
-
-/* ==========================================================
-   DATA
-   ========================================================== */
-
-.data-atual {
-    width: 100%;
-
-    margin: 2px 0 7px 0;
-
-    padding-right: 5px;
-
-    color: #222222;
-
-    font-size: 18px;
-
-    font-weight: normal;
-
-    line-height: 25px;
-
-    text-align: right;
-
-    flex-shrink: 0;
-}
-
-
-.data-atual strong {
-    font-weight: bold;
-}
-
-
-/* ==========================================================
-   TABELA
-   ========================================================== */
-
-.tabela-container {
-    width: 100%;
-
-    overflow-x: hidden;
-    overflow-y: visible;
-
-    flex-shrink: 0;
-}
-
-
-.tabela-programacao {
-    width: 100%;
+    width: 23%;
 
     height: auto;
 
-    border-collapse: collapse;
+    position: absolute;
 
-    table-layout: fixed;
+    transform: translate(-50%, -50%);
 
-    background: #e9e9f2;
+    top: 75%;
 
-    border: 3px solid #0000b7;
+    left: 15%;
+
 }
 
 
-/* ==========================================================
-   COLUNAS
-   ========================================================== */
 
-.tabela-programacao .col-programacao {
-    width: 70%;
+.ceit {
+
+    background-color: var(--azul-normal);
+
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+
+    top: 22.5%;
+
+    left: 50%;
+
+    width: 95%;
+
+    height: 400px;
+
+    border-radius: 30px;
+
 }
 
 
-.tabela-programacao .col-sala {
-    width: 15%;
-}
 
+.ceit_texto, .pilates_texto, .nutricionista_texto, .psicologa_texto {
 
-.tabela-programacao .col-horario {
-    width: 15%;
-}
+    position: absolute;
 
+    transform: translate(-50%, -50%);
 
-/* ==========================================================
-   CABEÇALHO DA TABELA
-   ========================================================== */
+    font-family: 'Aoboshi One';
 
-.tabela-programacao thead {
-    height: 68px;
-}
+    font-size: 24.5px;
 
-
-.tabela-programacao thead tr {
-    height: 68px;
-}
-
-
-.tabela-programacao th {
-    height: 68px;
-
-    padding: 10px 13px;
-
-    border: 2px solid #0000b7;
-
-    color: #111111;
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: 27px;
+    text-align: justify;
 
     font-weight: bold;
 
-    line-height: 1.1;
-
-    text-align: left;
-
-    vertical-align: middle;
-
-    white-space: nowrap;
-
-    background: #e9e9f2;
 }
 
 
-/* ==========================================================
-   LINHAS
-   ========================================================== */
 
-.tabela-programacao tbody tr {
-    height: auto;
-}
+.ceit_texto {color: var(--branco); top: 50%; left: 27%; width: 50%;}
 
 
-/* ==========================================================
-   CÉLULAS
-   ========================================================== */
 
-.tabela-programacao td {
-    min-height: 90px;
+.ceit_imagem {
 
-    padding: 18px 15px;
-
-    border: 2px solid #0000b7;
-
-    color: #222222;
-
-    font-size: 20px;
-
-    line-height: 1.35;
-
-    text-align: left;
-
-    vertical-align: middle;
-
-    overflow-wrap: break-word;
-
-    background: #e9e9f2;
-}
-
-
-/* ==========================================================
-   SALA
-   ========================================================== */
-
-.tabela-programacao th:nth-child(2),
-.tabela-programacao td:nth-child(2) {
-    text-align: center;
-
-    padding-left: 5px;
-
-    padding-right: 5px;
-}
-
-
-/* ==========================================================
-   HORÁRIO
-   ========================================================== */
-
-.tabela-programacao th:nth-child(3),
-.tabela-programacao td:nth-child(3) {
-    text-align: center;
-
-    padding-left: 5px;
-
-    padding-right: 5px;
-}
-
-
-/* ==========================================================
-   NENHUMA ATIVIDADE
-   ========================================================== */
-
-.tabela-programacao td[colspan="3"] {
-    text-align: center;
-
-    padding: 22px;
-
-    font-size: 18px;
-}
-
-
-/* ==========================================================
-   ERRO DA PLANILHA
-   ========================================================== */
-
-.erro-planilha {
-    width: 100%;
-
-    margin-top: 12px;
-
-    padding: 14px 15px;
-
-    background: #ffffff;
-
-    border-radius: 8px;
-
-    color: #b00000;
-
-    font-size: 15px;
-
-    line-height: 22px;
-
-    text-align: center;
-}
-
-
-/* ==========================================================
-   ÚLTIMA ATUALIZAÇÃO
-   ========================================================== */
-
-.ultima-atualizacao {
-    width: 100%;
-
-    margin-top: 7px;
-
-    padding-right: 5px;
-
-    color: #555555;
-
-    font-size: 10px;
-
-    line-height: 18px;
-
-    text-align: right;
-
-    flex-shrink: 0;
-}
-
-
-/* ==========================================================
-   LOGO TRAMONTINA
-   ========================================================== */
-
-.logo-tramontina {
-    width: 100%;
-
-    margin-top: 25px;
-
-    padding-bottom: 30px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    flex-shrink: 0;
-}
-
-
-.logo-tramontina img {
-    /*
-     * LOGO MAIOR
-     */
-    width: 300px;
+    width: 90%;
 
     height: auto;
 
-    max-width: 60%;
+    position: absolute;
 
-    display: block;
+    transform: translate(-50%, -50%);
 
-    object-fit: contain;
+    top: 50%;
+
+    left: 77%;
+
+    border-radius: 30px;
+
 }
+
+
+
+.pilates_texto, .nutricionista_texto, .psicologa_texto {color: var(--preto);}
+
+
+
+.pilates {
+
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+
+    top: 45%;
+
+    left: 50%;
+
+    width: 95%;
+
+    height: 400px;
+
+    border-radius: 30px;
+
+}
+
+
+
+.pilates_texto {
+
+    top: 45%;
+
+    left: 26%;
+
+    width: 50%;
+
+}
+
+
+
+.pilates_imagem {
+
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+
+    height: auto;
+
+    width: 65%;
+
+    top: 47%;
+
+    left: 77%;
+
+}
+
+
+
+.nutricionista {
+
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+
+    top: 65%;
+
+    left: 50%;
+
+    width: 95%;
+
+    height: 400px;
+
+    border-radius: 30px;
+
+}
+
+
+
+.nutricionista_texto {
+
+    top: 50%;
+
+    left: 74%;
+
+    width: 50%;
+
+}
+
+
+
+.nutricionista_imagem {
+
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+
+    height: 450px;
+
+    width: 88%;
+
+    top: 50%;
+
+    left: 23.5%;
+
+}
+
+
+
+.psicologa {
+
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+
+    top: 85%;
+
+    left: 50%;
+
+    width: 95%;
+
+    height: 400px;
+
+    border-radius: 30px;
+
+}
+
+
+
+.psicologa_texto {
+
+    top: 57%;
+
+    left: 26%;
+
+    width: 50%;
+
+}
+
+
+
+.psicologa_imagem {
+
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+
+    height: 425px;
+
+    width: 60%;
+
+    top: 60%;
+
+    left: 77%;
+
+}
+
+
+
+/* Fim Bem-Estar */
+
+
+
+.prog {
+
+    background-color: var(--azul-normal);
+
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+
+    top: 15%;
+
+    left: 48.5%;
+
+    width: 90%;
+
+    height: 150px;
+
+    border-radius: 30px;
+
+}
+
+
+
+.prog_texto {
+
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+
+    font-family: 'Aoboshi One';
+
+    font-size: 22px;
+
+    text-align: justify;
+
+    font-weight: bold;
+
+    color: var(--branco);
+
+    top: 50%;
+
+    left: 50%;
+
+    width: 95%;
+
+}
+
 
 
 /* ==========================================================
-   SCROLLBAR
+
+   RESPONSIVIDADE - TELA DE 7 POLEGADAS
+
    ========================================================== */
 
-.tabela-container::-webkit-scrollbar {
-    width: 8px;
-}
 
 
-.tabela-container::-webkit-scrollbar-track {
-    background: #e9e9f2;
-}
+@media screen and (max-width: 800px) {
 
 
-.tabela-container::-webkit-scrollbar-thumb {
-    background: #0000b7;
 
-    border-radius: 10px;
-}
+    /* CONTAINER */
 
+    #container {
 
-/* ==========================================================
-   RESPONSIVIDADE
-   ========================================================== */
-
-@media screen and (max-width: 899px) {
-
-    html,
-    body {
-        height: auto;
-
-        overflow-y: auto;
-    }
-
-
-    /* ======================================================
-       PÁGINA
-       ====================================================== */
-
-    .pagina {
         width: 100%;
 
         min-height: 100vh;
+
     }
 
 
-    /* ======================================================
-       CABEÇALHO
-       ====================================================== */
 
-    .cabecalho {
-        height: 90px;
+    /* ================= TOPO ================= */
+
+
+
+    #topo {
+
+        height: 150px;
+
+        width: 100%;
+
+        padding: 10px;
+
     }
 
 
-    .cabecalho h1 {
-        font-size: 38px;
+
+    #topo h2 {
+
+        font-size: 42px;
+
+        line-height: 1;
+
+        margin-right: 100px;
+
     }
 
 
-    /* ======================================================
-       CONTEÚDO
-       ====================================================== */
 
-    .conteudo {
-        padding: 18px 12px 0 12px;
+    #topo h3 {
+
+        font-size: 20px;
+
+        margin-right: 100px;
+
     }
 
 
-    /* ======================================================
-       CAIXA
-       ====================================================== */
 
-    .caixa-informacao {
-        width: 80%;
+    .imagemtopo {
 
-        min-height: 90px;
+        top: 15px;
 
-        padding: 12px 20px;
+        right: 15px;
 
-        border-radius: 20px;
     }
 
 
-    .caixa-informacao p {
-        font-size: 11px;
 
-        line-height: 14px;
+    .imagemtopo img {
+
+        width: 90px;
+
     }
 
 
-    /* ======================================================
-       DATA
-       ====================================================== */
 
-    .data-atual {
-        margin-top: 2px;
+
+
+    /* ================= CONTEÚDO ================= */
+
+
+
+    #conteudo {
+
+        width: 100%;
+
+        padding: 12px;
+
+        gap: 18px;
+
+        justify-content: flex-start;
+
+    }
+
+
+
+
+
+    /* ================= BLOCO IMAGEM + TEXTO ================= */
+
+
+
+    .bloco-img-texto {
+
+        width: 100%;
+
+        margin-top: 15px;
+
+        padding: 12px;
+
+        gap: 12px;
+
+        border-radius: 15px;
+
+    }
+
+
+
+    .imagem1 {
+
+        flex-shrink: 0;
+
+    }
+
+
+
+    .imagem1 img {
+
+        width: 150px;
+
+        height: 170px;
+
+        border-radius: 12px;
+
+    }
+
+
+
+    #textodoladodaimg {
+
+        font-size: 17px;
+
+        line-height: 1.25;
+
+        padding: 0;
+
+    }
+
+
+
+
+
+    /* ================= BLOCO INICIAL ================= */
+
+
+
+    .bloco-inicial {
+
+        width: 100%;
+
+        gap: 15px;
+
+    }
+
+
+
+    .imagem-inicial {
+
+        flex-shrink: 0;
+
+    }
+
+
+
+    .imagem-inicial img {
+
+        width: 150px;
+
+        height: 170px;
+
+        border-radius: 15px;
+
+    }
+
+
+
+    .texto-inicial {
+
+        width: auto;
+
+        flex: 1;
+
+    }
+
+
+
+    .texto-inicial h2 {
+
+        font-size: 21px;
 
         margin-bottom: 5px;
 
-        font-size: 11px;
-
-        line-height: 20px;
     }
 
 
-    /* ======================================================
-       TABELA
-       ====================================================== */
 
-    .tabela-container {
-        max-height: none;
+    .texto-inicial p {
 
-        overflow-x: auto;
+        font-size: 17px;
 
-        overflow-y: visible;
+        line-height: 1.25;
+
+        text-align: justify;
+
     }
 
 
-    .tabela-programacao {
-        height: auto;
 
-        min-width: 650px;
+
+
+    /* ================= BLOCO FINAL ================= */
+
+
+
+    .bloco-final {
+
+        width: 100%;
+
+        gap: 15px;
+
     }
 
 
-    .tabela-programacao thead,
-    .tabela-programacao thead tr {
-        height: 35px;
+
+    .imagem-final {
+
+        flex-shrink: 0;
+
     }
 
 
-    .tabela-programacao th {
-        height: 35px;
+
+    .imagem-final img {
+
+        width: 150px;
+
+        height: 170px;
+
+        border-radius: 15px;
+
+    }
+
+
+
+    .texto-final {
+
+        width: auto;
+
+        flex: 1;
+
+    }
+
+
+
+    .texto-final h2 {
+
+        font-size: 21px;
+
+        margin-bottom: 5px;
+
+    }
+
+
+
+    .texto-final p {
+
+        font-size: 17px;
+
+        line-height: 1.25;
+
+        text-align: justify;
+
+    }
+
+
+
+
+
+    /* ================= RESERVA ================= */
+
+
+
+    .textoreserva {
 
         padding: 5px;
 
-        font-size: 14px;
     }
 
 
-    .tabela-programacao td {
-        min-height: 65px;
 
-        padding: 8px 5px;
+    .textoreserva h3 {
 
-        font-size: 10px;
+        font-size: 21px;
+
+        margin-bottom: 5px;
+
     }
 
 
-    /* ======================================================
-       MENSAGEM
-       ====================================================== */
 
-    .tabela-programacao td[colspan="3"] {
+    .textoreserva p {
+
+        font-size: 17px;
+
+        line-height: 1.25;
+
+    }
+
+
+
+
+
+    /* ================= RODAPÉ ================= */
+
+
+
+    #rodape {
+
+        width: 100%;
+
+        height: 45px;
+
+        margin-top: 15px;
+
+    }
+
+}
+
+
+
+
+
+/* ==========================================================
+
+   TELAS PEQUENAS - 600px OU MENOS
+
+   ========================================================== */
+
+
+
+@media screen and (max-width: 600px) {
+
+
+
+    #topo {
+
+        height: 130px;
+
+    }
+
+
+
+    #topo h2 {
+
+        font-size: 34px;
+
+        margin-right: 80px;
+
+    }
+
+
+
+    #topo h3 {
+
+        font-size: 17px;
+
+        margin-right: 80px;
+
+    }
+
+
+
+    .imagemtopo img {
+
+        width: 70px;
+
+    }
+
+
+
+    .imagemtopo {
+
+        top: 10px;
+
+        right: 10px;
+
+    }
+
+
+
+    #conteudo {
+
         padding: 10px;
 
-        font-size: 10px;
+        gap: 12px;
+
     }
 
 
-    /* ======================================================
-       ERRO
-       ====================================================== */
 
-    .erro-planilha {
-        margin-top: 7px;
+    .bloco-img-texto,
 
-        padding: 7px;
+    .bloco-inicial,
 
-        font-size: 9px;
+    .bloco-final {
 
-        line-height: 14px;
+        gap: 10px;
+
     }
 
 
-    /* ======================================================
-       ATUALIZAÇÃO
-       ====================================================== */
 
-    .ultima-atualizacao {
-        margin-top: 4px;
+    .imagem1 img,
 
-        font-size: 6px;
+    .imagem-inicial img,
 
-        line-height: 12px;
+    .imagem-final img {
+
+        width: 120px;
+
+        height: 140px;
+
     }
 
 
-    /* ======================================================
-       LOGO
-       ====================================================== */
 
-    .logo-tramontina {
-        margin-top: 20px;
+    #textodoladodaimg,
 
-        padding-bottom: 20px;
+    .texto-inicial p,
+
+    .texto-final p,
+
+    .textoreserva p {
+
+        font-size: 14px;
+
     }
 
 
-    .logo-tramontina img {
-        width: 180px;
 
-        max-width: 60%;
+    .texto-inicial h2,
+
+    .texto-final h2,
+
+    .textoreserva h3 {
+
+        font-size: 18px;
+
     }
-}
+
+
+
+    #rodape {
+
+        height: 40px;
+
+    }
+
+} 
