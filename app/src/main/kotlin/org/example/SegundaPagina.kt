@@ -1,5 +1,6 @@
 package org.example
 
+import org.example.model.Sessao
 import javafx.animation.PauseTransition
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader

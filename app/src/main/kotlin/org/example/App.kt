@@ -1,9 +1,10 @@
 package org.example
 
-import javafx.application.Application
 import java.io.File
-import java.io.PrintWriter
 import java.io.StringWriter
+import java.io.PrintWriter
+import org.example.model.Sessao
+import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
