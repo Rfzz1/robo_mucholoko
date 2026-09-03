@@ -50,46 +50,50 @@ class TerceiraPagina {
     // CARREGAMENTOS DE HTML (BARRIGA)
     // ==========================================
 
+    private fun obterPastaIdioma(): String {
+        return Navegador.obterSufixoIdioma(padrao = "pt", ing = "en", esp = "es")
+    }
+
     @FXML
     fun abrirProgramacaoDiaria(event: ActionEvent) {
-        val nome = Navegador.obterSufixoIdioma(padrao = "programacao_diaria", ing = "programacao_diaria_ingles", esp = "programacao_diaria_espanhol")
-        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/programacao_diaria/programacaodia.html")
+        val lang = obterPastaIdioma()
+        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/programacao_diaria/$lang/index.html")
     }
 
     @FXML
     fun abrirBemEstar(event: ActionEvent) {
-        val nome = Navegador.obterSufixoIdioma(padrao = "bem_estar", ing = "bem_estar_ingles", esp = "bem_estar_espanhol")
-        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/bem_estar/bem_estar.html")
+        val lang = obterPastaIdioma()
+        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/bem_estar/$lang/index.html")
     }
 
     @FXML
     fun abrirEduca(event: ActionEvent) {
-        val pasta = Navegador.obterSufixoIdioma(padrao = "educaport", ing = "educaing", esp = "educaesp")
-        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/educa/educaing/index.html")
+        val lang = obterPastaIdioma()
+        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/educa/$lang/index.html")
     }
-    
+
     @FXML
     fun abrirCeit(event: ActionEvent) {
-        val pasta = Navegador.obterSufixoIdioma(padrao = "ceitport", ing = "ceiting", esp = "ceitesp")
-        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/robo/ceit.html")
+        val lang = obterPastaIdioma()
+        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/ceit/$lang/index.html")
     }
 
     @FXML
     fun abrirPet(event: ActionEvent) {
-        val pasta = Navegador.obterSufixoIdioma(padrao = "petport", ing = "peting", esp = "petesp")
-        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/robo/pet.html")
+        val lang = obterPastaIdioma()
+        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/pet/$lang/index.html")
     }
 
     @FXML
     fun abrirAtf(event: ActionEvent) {
-        val pasta = Navegador.obterSufixoIdioma(padrao = "atfport", ing = "atfing", esp = "atfesp")
-        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/robo/atf.html")
+        val lang = obterPastaIdioma()
+        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/atf/$lang/index.html")
     }
 
     @FXML
     fun abrirAcessibilidade(event: ActionEvent) {
-        val pasta = Navegador.obterSufixoIdioma(padrao = "acessibilidadeport", ing = "acessibilidadeing", esp = "acessibilidadeesp")
-        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/robo/acessibilidade.html")
+        val lang = obterPastaIdioma()
+        Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/acessibilidade/$lang/index.html")
     }
 
     @FXML
