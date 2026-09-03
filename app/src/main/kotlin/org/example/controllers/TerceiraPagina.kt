@@ -70,11 +70,9 @@ class TerceiraPagina {
     
     @FXML
     fun abrirCeit(event: ActionEvent) {
-        // Ajuste os nomes das pastas conforme os arquivos reais que você tem
         val pasta = Navegador.obterSufixoIdioma(padrao = "ceitport", ing = "ceiting", esp = "ceitesp")
         Sessao.controllerBarriga?.carregarPaginaHtml("/htmls/robo/ceit.html")
     }
-
 
     @FXML
     fun abrirPet(event: ActionEvent) {
@@ -97,64 +95,44 @@ class TerceiraPagina {
     @FXML
     fun iniciarJogo(event: ActionEvent) {
         try {
-            var arquivoExe = File(System.getProperty("user.dir"), "jogo/WorkBot.exe")
-            
-            // Tentativas de fallback para o ambiente de desenvolvimento
-            if (!arquivoExe.exists()) {
-                arquivoExe = File("app/src/main/roast/WorkBot.exe")
-            }
-            if (!arquivoExe.exists()) {
-                arquivoExe = File("src/main/roast/WorkBot.exe") 
-            }
+            // 1. Descobre o caminho relativo
+            val arquivoExe = File(System.getProperty("user.dir"), "jogo/WorkBot.exe")
 
             if (arquivoExe.exists()) {
-                val pastaDoJogo = arquivoExe.parentFile
-                println("Tentando abrir diretamente o executável: ${arquivoExe.absolutePath}")
-                
-                // Esconde a Barriga
-                Sessao.palcoBarriga?.hide()
-                
+                // 2. Minimiza a tela da barriga usando safe call (?)
+                Sessao.palcoBarriga?.isIconified = true
+
+                // 3. Inicia o processo do jogo
+                val processo = ProcessBuilder(arquivoExe.absolutePath)
+                processo.directory(arquivoExe.parentFile)
+                val procAtivo = processo.start()
+
+                // 4. Cria uma thread em segundo plano para esperar o jogo fechar
                 Thread {
-                    try {
-                        val processo = ProcessBuilder(arquivoExe.absolutePath)
-                        processo.directory(pastaDoJogo) 
-                        
-                        val env = processo.environment()
-                        env.remove("JAVA_HOME")
-                        env.remove("JAVA_TOOL_OPTIONS")
-                        env.remove("_JAVA_OPTIONS")
-                        
-                        val logCrash = File(pastaDoJogo, "log_crash_jogo.txt")
-                        processo.redirectErrorStream(true)
-                        processo.redirectOutput(logCrash) 
-                        
-                        val processoAtivo = processo.start()
-                        println("O arquivo .exe foi disparado e isolado!")
-                        
-                        processoAtivo.waitFor() 
-                        
-                        if (logCrash.exists() && logCrash.length() > 0) {
-                            println("O jogo fechou e deixou o seguinte aviso no log:")
-                            println(logCrash.readText())
-                        }
-                        
-                        Platform.runLater {
-                            println("Restaurando a tela da Barriga...")
-                            Sessao.palcoBarriga?.show()
-                            Sessao.palcoBarriga?.isFullScreen = true
-                            Sessao.palcoBarriga?.requestFocus()
-                        }
-                    } catch (e: Exception) {
-                        println("Erro interno ao disparar a Thread: ${e.message}")
+                    procAtivo.waitFor()
+
+                    // 5. Quando o jogo fechar, volta a exibir a barriga em tela cheia usando safe call (?)
+                    Platform.runLater {
+                        Sessao.palcoBarriga?.isIconified = false
+                        Sessao.palcoBarriga?.isFullScreen = true
+                        Sessao.palcoBarriga?.requestFocus()
                     }
                 }.start()
-                
+
             } else {
-                println("ERRO CRÍTICO: O arquivo .exe não foi encontrado em lugar nenhum!")
+                val alertaErro = javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR)
+                alertaErro.title = "Erro"
+                alertaErro.headerText = "Jogo não encontrado"
+                alertaErro.contentText = "Não foi possível encontrar o arquivo em:\n${arquivoExe.absolutePath}"
+                alertaErro.showAndWait()
             }
+
         } catch (e: Exception) {
-            println("Erro geral no botão: ${e.message}")
-            e.printStackTrace()
+            val alertaErro = javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR)
+            alertaErro.title = "Erro"
+            alertaErro.headerText = "Deu erro ao tentar abrir"
+            alertaErro.contentText = e.message
+            alertaErro.showAndWait()
         }
     }
 }

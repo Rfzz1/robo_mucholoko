@@ -1,5 +1,8 @@
 package org.example
 
+import java.io.File
+import java.io.StringWriter
+import java.io.PrintWriter
 import org.example.model.Sessao
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
@@ -85,7 +88,23 @@ class App : Application() {
 }
 
 fun main() {
-System.setProperty("prism.order", "d3d,sw")
+    try {
+        System.setProperty("prism.order", "d3d,sw")
+        Application.launch(App::class.java)
+    } catch (e: Throwable) {
+        // Se qualquer coisa der erro e fechar o programa, isso vai salvar o motivo exato!
+        try {
+            val desktop = File(System.getProperty("user.home"), "Desktop")
+            val arquivoErro = File(desktop, "erro_fatal_robo.txt")
 
-    Application.launch(App::class.java)
+            val sw = StringWriter()
+            e.printStackTrace(PrintWriter(sw))
+            arquivoErro.writeText(sw.toString())
+        } catch (ex: Exception) {
+            // Se nem salvar o arquivo der, ignora para não travar mais ainda
+        }
+
+        // Joga o erro original para cima também
+        e.printStackTrace()
+    }
 }
