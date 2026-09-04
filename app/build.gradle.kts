@@ -25,6 +25,8 @@ dependencies {
     implementation("org.openjfx:javafx-fxml:21:win")
     implementation("org.openjfx:javafx-graphics:21:win")
     implementation("org.openjfx:javafx-web:21:win")
+    implementation("uk.co.caprica:vlcj:4.8.2")
+    implementation("uk.co.caprica:vlcj-javafx:1.1.0")
     implementation("org.openjfx:javafx-media:21:win")
     implementation(libs.guava)
 }

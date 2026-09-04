@@ -3,10 +3,12 @@ package org.example.controllers
 import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.scene.control.Label
-import javafx.scene.media.Media
-import javafx.scene.media.MediaPlayer
-import javafx.scene.media.MediaView
+import javafx.scene.image.ImageView
+import javafx.scene.layout.StackPane
 import org.example.utils.Navegador
+import uk.co.caprica.vlcj.factory.MediaPlayerFactory
+import uk.co.caprica.vlcj.javafx.videosurface.ImageViewVideoSurface
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 import java.io.File
 
 class TelaVideoController {
@@ -15,41 +17,44 @@ class TelaVideoController {
     private lateinit var lblTitulo: Label
 
     @FXML
-    private lateinit var mediaView: MediaView
+    private lateinit var painelVideo: StackPane 
 
-    private var mediaPlayer: MediaPlayer? = null
     var caminhoDeVolta: String = ""
+
+    private var mediaPlayerFactory: MediaPlayerFactory? = null
+    private var mediaPlayerVLC: EmbeddedMediaPlayer? = null
+    private lateinit var videoImageView: ImageView
+
+    @FXML
+    fun initialize() {
+        mediaPlayerFactory = MediaPlayerFactory()
+        mediaPlayerVLC = mediaPlayerFactory?.mediaPlayers()?.newEmbeddedMediaPlayer()
+        
+        videoImageView = ImageView()
+        
+        videoImageView.fitWidthProperty().bind(painelVideo.widthProperty())
+        videoImageView.fitHeightProperty().bind(painelVideo.heightProperty())
+        videoImageView.isPreserveRatio = true
+        
+        painelVideo.children.add(videoImageView)
+
+        mediaPlayerVLC?.videoSurface()?.set(ImageViewVideoSurface(videoImageView))
+    }
 
     fun tocarVideo(caminhoVideo: File, titulo: String) {
         lblTitulo.text = titulo
-        val urlVideo = caminhoVideo.toURI().toString()
 
         try {
-            // 1. Limpa qualquer resquício de vídeo anterior para não encavalar memória
-            limparMemoriaDoVideo()
-
-            val media = Media(urlVideo)
-            mediaPlayer = MediaPlayer(media)
-
-            mediaPlayer?.setOnError {
-                println("Motivo da falha no vídeo: ${mediaPlayer?.error?.message}")
-            }
-
-            // 2. O SEGREDO: Só coloca o vídeo na tela e dá Play quando ele estiver 100% carregado no buffer
-            mediaPlayer?.setOnReady {
-                mediaView.mediaPlayer = mediaPlayer
-                mediaPlayer?.play()
-            }
-
+            val caminhoFisico = caminhoVideo.absolutePath
+            mediaPlayerVLC?.media()?.play(caminhoFisico)
         } catch (e: Exception) {
-            println("Erro ao tentar tocar o vídeo no caminho: ${caminhoVideo.absolutePath}")
+            println("Erro ao tentar tocar o vídeo no VLC: ${caminhoVideo.absolutePath}")
             e.printStackTrace()
         }
     }
 
     @FXML
     fun voltarParaLocalizarSalas(event: ActionEvent) {
-        // 3. Limpa o vídeo da memória RAM antes de trocar de tela
         limparMemoriaDoVideo()
 
         if (caminhoDeVolta.isNotEmpty()) {
@@ -60,13 +65,11 @@ class TelaVideoController {
         }
     }
 
-    // Função auxiliar para garantir que o JavaFX libere a memória do robô
     private fun limparMemoriaDoVideo() {
-        if (mediaPlayer != null) {
-            mediaPlayer?.stop()
-            mediaPlayer?.dispose() // ISSO É FUNDAMENTAL para totens/robôs que rodam o dia todo
-            mediaPlayer = null
-            mediaView.mediaPlayer = null
-        }
+        mediaPlayerVLC?.controls()?.stop()
+        mediaPlayerVLC?.release()
+        mediaPlayerFactory?.release()
+        mediaPlayerVLC = null
+        mediaPlayerFactory = null
     }
 }
