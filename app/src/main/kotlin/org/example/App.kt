@@ -12,79 +12,77 @@ import javafx.stage.Screen
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 
-//dsasdsa
-
 class App : Application() {
 
     override fun start(palcoPrincipal: Stage) {
 
         val monitores = Screen.getScreens()
+        
+        // O Monitor 1 (Principal) do sistema
+        val telaMonitor1: Screen = Screen.getPrimary() 
+        
+        // O Monitor 2 (Secundário). Se só tiver 1 monitor, ele usa o mesmo para evitar erros.
+        val telaMonitor2: Screen = if (monitores.size > 1) {
+            monitores.first { it != Screen.getPrimary() }
+        } else {
+            Screen.getPrimary()
+        }
 
         // ==========================================
-        // TELA CENTRAL - BARRIGA COM O HTML
+        // ESCOLHA AQUI QUEM VAI PARA QUAL MONITOR
+        // ==========================================
+        val telaBarriga: Screen = telaMonitor1 // Barriga no Monitor 1
+        val telaRosto: Screen   = telaMonitor2 // Rosto no Monitor 2
+
+        // ==========================================
+        // TELA CENTRAL - BARRIGA COM O HTML (1920x1080)
         // ==========================================
 
-        val loaderCentral =
-            FXMLLoader(javaClass.getResource("/menu/Barriga.fxml"))
-
+        val loaderCentral = FXMLLoader(javaClass.getResource("/menu/Barriga.fxml"))
         val rootCentral = loaderCentral.load<Parent>()
 
         palcoPrincipal.scene = Scene(rootCentral)
-
-        // MODO TOTEM
         palcoPrincipal.initStyle(StageStyle.UNDECORATED)
 
-        // Pega o monitor principal
-        val boundsPrincipal = monitores[0].bounds
+        // Posiciona a barriga fisicamente no monitor correto ANTES de dar tela cheia
+        val limitesBarriga = telaBarriga.visualBounds
+        palcoPrincipal.x = limitesBarriga.minX
+        palcoPrincipal.y = limitesBarriga.minY
+        palcoPrincipal.width = limitesBarriga.width
+        palcoPrincipal.height = limitesBarriga.height
 
-        palcoPrincipal.x = boundsPrincipal.minX
-        palcoPrincipal.y = boundsPrincipal.minY
-        palcoPrincipal.width = boundsPrincipal.width
-        palcoPrincipal.height = boundsPrincipal.height
-
-        // TELA CHEIA
+        palcoPrincipal.show()
         palcoPrincipal.isFullScreen = true
         palcoPrincipal.fullScreenExitHint = ""
 
         Sessao.palcoBarriga = palcoPrincipal
 
-        palcoPrincipal.show()
-
-
         // ==========================================
-        // TELA EXTERNA - ROSTO GRANDE DO ROBÔ
+        // TELA EXTERNA - ROSTO DO ROBÔ (1366x768)
         // ==========================================
 
         val palcoExterno = Stage()
-
-        // AGORA ABRE O ROSTO GRANDE
-        val loaderExterno =
-            FXMLLoader(javaClass.getResource("/rosto/Rosto_robo_GRANDE.fxml"))
-
+        val loaderExterno = FXMLLoader(javaClass.getResource("/rosto/Rosto_robo_GRANDE.fxml"))
         val rootExterno = loaderExterno.load<Parent>()
 
         palcoExterno.scene = Scene(rootExterno)
-
-        // MODO TOTEM
         palcoExterno.initStyle(StageStyle.UNDECORATED)
 
-        if (monitores.size > 1) {
-
-            val boundsExterno = monitores[1].bounds
-
-            palcoExterno.x = boundsExterno.minX
-            palcoExterno.y = boundsExterno.minY
-            palcoExterno.width = boundsExterno.width
-            palcoExterno.height = boundsExterno.height
-
-            // TELA CHEIA
-            palcoExterno.isFullScreen = true
-            palcoExterno.fullScreenExitHint = ""
-        }
+        // Posiciona o rosto fisicamente no monitor correto ANTES de dar tela cheia
+        val limitesRosto = telaRosto.visualBounds
+        palcoExterno.x = limitesRosto.minX
+        palcoExterno.y = limitesRosto.minY
+        palcoExterno.width = limitesRosto.width
+        palcoExterno.height = limitesRosto.height
 
         palcoExterno.show()
 
-        // Deixa a barriga com o foco
+        // Garante que a tela cheia só aplique se houver mais de um monitor,
+        // ou se estiver forçando as duas no mesmo para testes.
+        palcoExterno.isFullScreen = true
+        palcoExterno.fullScreenExitHint = ""
+
+        // Deixa a barriga com o foco para os toques funcionarem imediatamente
         palcoPrincipal.requestFocus()
     }
 }
@@ -94,7 +92,6 @@ fun main() {
         System.setProperty("prism.order", "d3d,sw")
         Application.launch(App::class.java)
     } catch (e: Throwable) {
-        // Se qualquer coisa der erro e fechar o programa, isso vai salvar o motivo exato!
         try {
             val desktop = File(System.getProperty("user.home"), "Desktop")
             val arquivoErro = File(desktop, "erro_fatal_robo.txt")
@@ -105,8 +102,6 @@ fun main() {
         } catch (ex: Exception) {
             // Se nem salvar o arquivo der, ignora para não travar mais ainda
         }
-
-        // Joga o erro original para cima também
         e.printStackTrace()
     }
 }
