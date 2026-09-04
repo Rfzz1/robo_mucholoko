@@ -22,9 +22,11 @@ body {
 }
 
 /* TOPO */
+/* TOPO CORRIGIDO */
 #topo {
     width: 100%;
-    height: 200px;
+    min-height: 200px;
+    height: auto;
     background-color: rgba(0, 0, 183, 0.85);
     color: white;
     display: flex;
@@ -34,21 +36,29 @@ body {
     position: relative;
     text-align: center;
     margin: 0;
+    padding: 20px 190px 20px 20px; /* O padding à direita impede o texto de encostar na imagem */
+}
+
+#topo h1 {
+    font-size: 50px;
+    margin: 0 0 5px 0;
+}
+
+#topo h2 {
+    font-size: 24px; /* Ajustado de 80px para um tamanho proporcional ao cabeçalho */
+    margin: 0;
+    font-weight: normal;
 }
 
 .imagemtopo {
     position: absolute;
-    top: 20px;
+    top: 50%;
+    transform: translateY(-50%); /* Centraliza a imagem verticalmente no topo */
     right: 20px;
 }
 
 .imagemtopo img {
-    width: 160px;
-}
-
-#topo h2 {
-    font-size: 80px;
-    margin: 0;
+    width: 150px;
 }
 
 #topo h3 {

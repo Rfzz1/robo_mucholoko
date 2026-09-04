@@ -31,7 +31,7 @@ body{
 #banner-superior{
     width:100%;
     height:calc(100vh - 200px);
-    background-image:url("img/educaesp.png");
+    background-image:url("../../img/educaesp.png");
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
