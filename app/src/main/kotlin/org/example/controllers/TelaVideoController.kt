@@ -21,25 +21,25 @@ class TelaVideoController {
     var caminhoDeVolta: String = ""
 
     fun tocarVideo(caminhoVideo: File, titulo: String) {
-        // Muda o texto do título lá no topo da tela
         lblTitulo.text = titulo
-
-        // Converte o arquivo físico (File) para o formato de URI (String) que o JavaFX exige
         val urlVideo = caminhoVideo.toURI().toString()
 
         try {
+            // 1. Limpa qualquer resquício de vídeo anterior para não encavalar memória
+            limparMemoriaDoVideo()
+
             val media = Media(urlVideo)
             mediaPlayer = MediaPlayer(media)
 
-            // Escuta silenciosamente qualquer erro de leitura do vídeo e imprime no console
             mediaPlayer?.setOnError {
                 println("Motivo da falha no vídeo: ${mediaPlayer?.error?.message}")
             }
 
-            mediaView.mediaPlayer = mediaPlayer
-
-            mediaPlayer?.play()
-
+            // 2. O SEGREDO: Só coloca o vídeo na tela e dá Play quando ele estiver 100% carregado no buffer
+            mediaPlayer?.setOnReady {
+                mediaView.mediaPlayer = mediaPlayer
+                mediaPlayer?.play()
+            }
 
         } catch (e: Exception) {
             println("Erro ao tentar tocar o vídeo no caminho: ${caminhoVideo.absolutePath}")
@@ -49,13 +49,24 @@ class TelaVideoController {
 
     @FXML
     fun voltarParaLocalizarSalas(event: ActionEvent) {
-        mediaPlayer?.stop()
+        // 3. Limpa o vídeo da memória RAM antes de trocar de tela
+        limparMemoriaDoVideo()
 
         if (caminhoDeVolta.isNotEmpty()) {
             Navegador.trocarTela(event, caminhoDeVolta)
         } else {
             val sufixo = Navegador.obterSufixoIdioma(padrao = "", ing = "_ing", esp = "_esp")
             Navegador.trocarTela(event, "/menu/menu_rostoG$sufixo.fxml")
+        }
+    }
+
+    // Função auxiliar para garantir que o JavaFX libere a memória do robô
+    private fun limparMemoriaDoVideo() {
+        if (mediaPlayer != null) {
+            mediaPlayer?.stop()
+            mediaPlayer?.dispose() // ISSO É FUNDAMENTAL para totens/robôs que rodam o dia todo
+            mediaPlayer = null
+            mediaView.mediaPlayer = null
         }
     }
 }

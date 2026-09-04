@@ -20,7 +20,7 @@ class SegundaPagina {
         println("🟢 SegundaPagina iniciou")
         println("🌎 Idioma escolhido: ${Sessao.idiomaEscolhido}")
 
-        val cronometro = PauseTransition(Duration.seconds(10.0))
+        val cronometro = PauseTransition(Duration.seconds(1.0))
 
         cronometro.setOnFinished {
             println("⏰ 10 segundos terminaram")
