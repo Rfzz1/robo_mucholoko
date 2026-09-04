@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView
 import javafx.scene.layout.StackPane
 import org.example.utils.Navegador
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory
+import uk.co.caprica.vlcj.factory.discovery.NativeDiscovery
 import uk.co.caprica.vlcj.javafx.videosurface.ImageViewVideoSurface
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 import java.io.File
@@ -27,6 +28,15 @@ class TelaVideoController {
 
     @FXML
     fun initialize() {
+        // 1. Força a busca das DLLs do VLC no Windows
+        val vlcEncontrado = NativeDiscovery().discover()
+        println("🔍 VLC Nativo localizado no sistema? $vlcEncontrado")
+
+        if (!vlcEncontrado) {
+            println("❌ ERRO CRÍTICO: O VLC Media Player 64-bits não foi encontrado no Windows!")
+            return
+        }
+
         mediaPlayerFactory = MediaPlayerFactory()
         mediaPlayerVLC = mediaPlayerFactory?.mediaPlayers()?.newEmbeddedMediaPlayer()
         
@@ -44,9 +54,16 @@ class TelaVideoController {
     fun tocarVideo(caminhoVideo: File, titulo: String) {
         lblTitulo.text = titulo
 
+        println("📂 Arquivo existe no disco? ${caminhoVideo.exists()}")
+        println("📍 Caminho do vídeo: ${caminhoVideo.absolutePath}")
+
+        if (!caminhoVideo.exists()) {
+            println("❌ ERRO: Arquivo de vídeo não existe no caminho informado!")
+            return
+        }
+
         try {
-            val caminhoFisico = caminhoVideo.absolutePath
-            mediaPlayerVLC?.media()?.play(caminhoFisico)
+            mediaPlayerVLC?.media()?.play(caminhoVideo.absolutePath)
         } catch (e: Exception) {
             println("Erro ao tentar tocar o vídeo no VLC: ${caminhoVideo.absolutePath}")
             e.printStackTrace()
