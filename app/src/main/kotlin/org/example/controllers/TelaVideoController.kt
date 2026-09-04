@@ -11,7 +11,6 @@ import uk.co.caprica.vlcj.factory.discovery.NativeDiscovery
 import uk.co.caprica.vlcj.javafx.videosurface.ImageViewVideoSurface
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 import java.io.File
-import com.sun.jna.NativeLibrary
 
 class TelaVideoController {
 
@@ -27,36 +26,34 @@ class TelaVideoController {
     private var mediaPlayerVLC: EmbeddedMediaPlayer? = null
     private lateinit var videoImageView: ImageView
 
-    @FXML
-    fun initialize() {
-        val caminhoVLC = "C:\\Program Files\\VideoLAN\\VLC"
-        val dllVLC = File("$caminhoVLC\\libvlc.dll")
+@FXML
+fun initialize() {
+    val vlcEncontrado = NativeDiscovery().discover()
+    if (!vlcEncontrado) return
 
-        println("Procurando libvlc.dll em: ${dllVLC.absolutePath}")
-        println("Arquivo existe no disco? ${dllVLC.exists()}")
+    val vlcArgs = arrayOf(
+        "--avcodec-hw=none",
+        "--aout=directsound",
+        "--no-video-title-show",
+        "--quiet"
+    )
 
-        if (!dllVLC.exists()) {
-            println("ERRO CRITICO: O arquivo libvlc.dll nao foi encontrado na pasta informada.")
-            return
-        }
+    mediaPlayerFactory = MediaPlayerFactory(*vlcArgs)
+    mediaPlayerVLC = mediaPlayerFactory?.mediaPlayers()?.newEmbeddedMediaPlayer()
+    
+    videoImageView = ImageView()
+    
+    // Binda a largura e altura ao painel
+    videoImageView.fitWidthProperty().bind(painelVideo.widthProperty())
+    videoImageView.fitHeightProperty().bind(painelVideo.heightProperty())
+    
+    // DESATIVE a preservação de proporção para cobrir todo o fundo
+    videoImageView.isPreserveRatio = false
+    
+    painelVideo.children.add(videoImageView)
 
-        // Registra o caminho manualmente para o JNA encontrar as bibliotecas nativas
-        NativeLibrary.addSearchPath("libvlc", caminhoVLC)
-        NativeLibrary.addSearchPath("vlc", caminhoVLC)
-
-        mediaPlayerFactory = MediaPlayerFactory()
-        mediaPlayerVLC = mediaPlayerFactory?.mediaPlayers()?.newEmbeddedMediaPlayer()
-
-        videoImageView = ImageView()
-
-        videoImageView.fitWidthProperty().bind(painelVideo.widthProperty())
-        videoImageView.fitHeightProperty().bind(painelVideo.heightProperty())
-        videoImageView.isPreserveRatio = true
-
-        painelVideo.children.add(videoImageView)
-
-        mediaPlayerVLC?.videoSurface()?.set(ImageViewVideoSurface(videoImageView))
-    }
+    mediaPlayerVLC?.videoSurface()?.set(ImageViewVideoSurface(videoImageView))
+}
 
     fun tocarVideo(caminhoVideo: File, titulo: String) {
         lblTitulo.text = titulo
