@@ -26,30 +26,34 @@ class TelaVideoController {
     private var mediaPlayerVLC: EmbeddedMediaPlayer? = null
     private lateinit var videoImageView: ImageView
 
-    @FXML
-    fun initialize() {
-        // 1. Força a busca das DLLs do VLC no Windows
-        val vlcEncontrado = NativeDiscovery().discover()
-        println("🔍 VLC Nativo localizado no sistema? $vlcEncontrado")
+@FXML
+fun initialize() {
+    val vlcEncontrado = NativeDiscovery().discover()
+    if (!vlcEncontrado) return
 
-        if (!vlcEncontrado) {
-            println("❌ ERRO CRÍTICO: O VLC Media Player 64-bits não foi encontrado no Windows!")
-            return
-        }
+    val vlcArgs = arrayOf(
+        "--avcodec-hw=none",
+        "--aout=directsound",
+        "--no-video-title-show",
+        "--quiet"
+    )
 
-        mediaPlayerFactory = MediaPlayerFactory()
-        mediaPlayerVLC = mediaPlayerFactory?.mediaPlayers()?.newEmbeddedMediaPlayer()
-        
-        videoImageView = ImageView()
-        
-        videoImageView.fitWidthProperty().bind(painelVideo.widthProperty())
-        videoImageView.fitHeightProperty().bind(painelVideo.heightProperty())
-        videoImageView.isPreserveRatio = true
-        
-        painelVideo.children.add(videoImageView)
+    mediaPlayerFactory = MediaPlayerFactory(*vlcArgs)
+    mediaPlayerVLC = mediaPlayerFactory?.mediaPlayers()?.newEmbeddedMediaPlayer()
+    
+    videoImageView = ImageView()
+    
+    // Binda a largura e altura ao painel
+    videoImageView.fitWidthProperty().bind(painelVideo.widthProperty())
+    videoImageView.fitHeightProperty().bind(painelVideo.heightProperty())
+    
+    // DESATIVE a preservação de proporção para cobrir todo o fundo
+    videoImageView.isPreserveRatio = false
+    
+    painelVideo.children.add(videoImageView)
 
-        mediaPlayerVLC?.videoSurface()?.set(ImageViewVideoSurface(videoImageView))
-    }
+    mediaPlayerVLC?.videoSurface()?.set(ImageViewVideoSurface(videoImageView))
+}
 
     fun tocarVideo(caminhoVideo: File, titulo: String) {
         lblTitulo.text = titulo
