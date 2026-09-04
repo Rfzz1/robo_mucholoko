@@ -1,319 +1,337 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programação do Dia</title>
-    <!-- Ajuste o caminho do CSS conforme necessário -->
-    <link rel="stylesheet" href="../css/programacao_dia.css">
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Programação do Dia</title>
+        <!-- Ajuste o caminho do CSS conforme necessário -->
+        <link rel="stylesheet" href="../css/programacao_dia.css">
+    </head>
+    <body>
 
-<main class="pagina">
-    <!-- ==================================================
-         CABEÇALHO
-         ================================================== -->
-    <header class="cabecalho">
-        <h1>Programação do dia</h1>
-    </header>
+    <main class="pagina">
+        <!-- ==================================================
+             CABEÇALHO
+             ================================================== -->
+        <header class="cabecalho">
+            <h1>Programação do dia</h1>
+        </header>
 
-    <!-- ==================================================
-         CONTEÚDO
-         ================================================== -->
-    <section class="conteudo">
-        <!-- CAIXA DE INFORMAÇÃO -->
-        <div class="caixa-informacao">
-            <p>
-                Acompanhe a programação do dia no CEIT e fique por dentro das atividades, cursos, oficinas, reuniões, eventos e palestras que acontecerão ao longo do dia.
-                Aqui você pode conferir os horários e salas, facilitando a organização e participação de todos.
-            </p>
-        </div>
+        <!-- ==================================================
+             CONTEÚDO
+             ================================================== -->
+        <section class="conteudo">
+            <!-- CAIXA DE INFORMAÇÃO -->
+            <div class="caixa-informacao">
+                <p>
+                    Acompanhe a programação do dia no CEIT e fique por dentro das atividades, cursos, oficinas, reuniões, eventos e palestras que acontecerão ao longo do dia.
+                    Aqui você pode conferir os horários e salas, facilitando a organização e participação de todos.
+                </p>
+            </div>
 
-        <!-- DATA -->
-        <div class="data-atual" id="dataAtual">
-            Carregando data...
-        </div>
+            <!-- DATA -->
+            <div class="data-atual" id="dataAtual">
+                Carregando data...
+            </div>
 
-        <!-- TABELA -->
-        <div class="tabela-container">
-            <table class="tabela-programacao">
-                <thead>
-                    <tr>
-                        <th class="col-programacao">Programação</th>
-                        <th class="col-sala">Sala</th>
-                        <th class="col-horario">Horário</th>
-                    </tr>
-                </thead>
-                <tbody id="tabelaProgramacao">
-                    <tr>
-                        <td colspan="3">Carregando programação...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <!-- TABELA -->
+            <div class="tabela-container">
+                <table class="tabela-programacao">
+                    <thead>
+                        <tr>
+                            <th class="col-programacao">Programação</th>
+                            <th class="col-sala">Sala</th>
+                            <th class="col-horario">Horário</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaProgramacao">
+                        <tr>
+                            <td colspan="3">Carregando programação...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <!-- ERRO -->
-        <div class="erro-planilha" id="erroPlanilha" style="display: none;"></div>
+            <!-- ERRO -->
+            <div class="erro-planilha" id="erroPlanilha" style="display: none;"></div>
 
-        <!-- ÚLTIMA ATUALIZAÇÃO -->
-        <div class="ultima-atualizacao" id="ultimaAtualizacao">
-            Carregando...
-        </div>
+            <!-- ÚLTIMA ATUALIZAÇÃO -->
+            <div class="ultima-atualizacao" id="ultimaAtualizacao">
+                Carregando...
+            </div>
 
-        <!-- LOGO TRAMONTINA -->
-        <div class="logo-tramontina">
-            <!-- Ajuste o caminho da imagem conforme necessário -->
-            <img src="../../img/logo.png" alt="Tramontina">
-        </div>
-    </section>
-</main>
+            <!-- LOGO TRAMONTINA -->
+            <div class="logo-tramontina">
+                <!-- Ajuste o caminho da imagem conforme necessário -->
+                <img src="../../img/logo.png" alt="Tramontina">
+            </div>
+        </section>
+    </main>
 
-<script>
-/* ==========================================================
-   CONFIGURAÇÃO DA GOOGLE PLANILHA
-   ========================================================== */
-const PLANILHA_ID = "1S_qL4LVJYjflJ2JdJ503A-gRHlID8swDKY5eNavobfY";
-const GID = "653438749";
+    <script>
+    /* ==========================================================
+       CONFIGURAÇÃO DA GOOGLE PLANILHA
+       ========================================================== */
+    const PLANILHA_ID = "1S_qL4LVJYjflJ2JdJ503A-gRHlID8swDKY5eNavobfY";
+    const GID = "653438749";
 
-/* ==========================================================
-   ELEMENTOS DA PÁGINA
-   ========================================================== */
-const tabela = document.getElementById("tabelaProgramacao");
-const dataAtual = document.getElementById("dataAtual");
-const erroPlanilha = document.getElementById("erroPlanilha");
-const ultimaAtualizacao = document.getElementById("ultimaAtualizacao");
+    /* ==========================================================
+       ELEMENTOS DA PÁGINA
+       ========================================================== */
+    const tabela = document.getElementById("tabelaProgramacao");
+    const dataAtual = document.getElementById("dataAtual");
+    const erroPlanilha = document.getElementById("erroPlanilha");
+    const ultimaAtualizacao = document.getElementById("ultimaAtualizacao");
 
-/* ==========================================================
-   DATA ATUAL
-   ========================================================== */
-function obterDataHoje() {
-    const agora = new Date();
-    const partes = new Intl.DateTimeFormat("en-CA", {
-        timeZone: "America/Sao_Paulo",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-    }).formatToParts(agora);
+    /* ==========================================================
+       DATA ATUAL
+       ========================================================== */
+    function obterDataHoje() {
+        const agora = new Date();
+        const partes = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "America/Sao_Paulo",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        }).formatToParts(agora);
 
-    let ano = "", mes = "", dia = "";
+        let ano = "", mes = "", dia = "";
 
-    partes.forEach(parte => {
-        if (parte.type === "year") ano = parte.value;
-        if (parte.type === "month") mes = parte.value;
-        if (parte.type === "day") dia = parte.value;
-    });
+        partes.forEach(parte => {
+            if (parte.type === "year") ano = parte.value;
+            if (parte.type === "month") mes = parte.value;
+            if (parte.type === "day") dia = parte.value;
+        });
 
-    return {
-        ano: ano,
-        mes: mes,
-        dia: dia,
-        normalizada: `${ano}-${mes}-${dia}`,
-        exibicao: `${dia}/${mes}/${ano}`
-    };
-}
-
-/* ==========================================================
-   MOSTRAR DATA
-   ========================================================== */
-function mostrarData() {
-    const hoje = obterDataHoje();
-    const data = new Date(`${hoje.ano}-${hoje.mes}-${hoje.dia}T12:00:00`);
-    const dias = [
-        "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", 
-        "Quinta-feira", "Sexta-feira", "Sábado"
-    ];
-    const nomeDia = dias[data.getDay()];
-    dataAtual.innerHTML = `${nomeDia}, <strong>${hoje.exibicao}</strong>`;
-}
-
-/* ==========================================================
-   CONVERTER DATA DA PLANILHA
-   ========================================================== */
-function converterData(valor) {
-    if (valor === null || valor === undefined) return "";
-    let texto = String(valor).trim();
-    if (texto === "") return "";
-
-    let resultado = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-    if (resultado) {
-        const dia = resultado[1].padStart(2, "0");
-        const mes = resultado[2].padStart(2, "0");
-        const ano = resultado[3];
-        return `${ano}-${mes}-${dia}`;
+        return {
+            ano: ano,
+            mes: mes,
+            dia: dia,
+            normalizada: `${ano}-${mes}-${dia}`,
+            exibicao: `${dia}/${mes}/${ano}`
+        };
     }
 
-    resultado = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2})$/);
-    if (resultado) {
-        const dia = resultado[1].padStart(2, "0");
-        const mes = resultado[2].padStart(2, "0");
-        const ano = "20" + resultado[3];
-        return `${ano}-${mes}-${dia}`;
+    /* ==========================================================
+       MOSTRAR DATA
+       ========================================================== */
+    function mostrarData() {
+        const hoje = obterDataHoje();
+        const data = new Date(`${hoje.ano}-${hoje.mes}-${hoje.dia}T12:00:00`);
+        const dias = [
+            "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira",
+            "Quinta-feira", "Sexta-feira", "Sábado"
+        ];
+        const nomeDia = dias[data.getDay()];
+        dataAtual.innerHTML = `${nomeDia}, <strong>${hoje.exibicao}</strong>`;
     }
 
-    if (texto.startsWith("Date(")) {
-        const numeros = texto.match(/\d+/g);
-        if (numeros && numeros.length >= 3) {
-            const ano = numeros[0];
-            const mes = String(Number(numeros[1]) + 1).padStart(2, "0");
-            const dia = String(numeros[2]).padStart(2, "0");
+    /* ==========================================================
+       CONVERTER DATA DA PLANILHA
+       ========================================================== */
+    function converterData(valor) {
+        if (valor === null || valor === undefined) return "";
+        let texto = String(valor).trim();
+        if (texto === "") return "";
+
+        let resultado = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+        if (resultado) {
+            const dia = resultado[1].padStart(2, "0");
+            const mes = resultado[2].padStart(2, "0");
+            const ano = resultado[3];
             return `${ano}-${mes}-${dia}`;
         }
-    }
-    return "";
-}
 
-/* ==========================================================
-   PEGAR VALOR DE UMA CÉLULA
-   ========================================================== */
-function valorCelula(celula) {
-    if (!celula) return "";
-    if (celula.f !== undefined && celula.f !== null) return String(celula.f).trim();
-    if (celula.v !== undefined && celula.v !== null) return String(celula.v).trim();
-    return "";
-}
-
-/* ==========================================================
-   ORDENAR HORÁRIOS
-   ========================================================== */
-function converterHorarioParaMinutos(horario) {
-    if (!horario) return 999999;
-    const resultado = horario.match(/(\d{1,2}):(\d{2})/);
-    if (!resultado) return 999999;
-    const hora = Number(resultado[1]);
-    const minuto = Number(resultado[2]);
-    return (hora * 60) + minuto;
-}
-
-/* ==========================================================
-   MOSTRAR ERRO
-   ========================================================== */
-function mostrarErro(mensagem) {
-    erroPlanilha.style.display = "block";
-    erroPlanilha.textContent = mensagem;
-    tabela.innerHTML = `<tr><td colspan="3">Não foi possível carregar a programação.</td></tr>`;
-}
-
-/* ==========================================================
-   MOSTRAR PROGRAMAÇÃO
-   ========================================================== */
-function mostrarProgramacao(eventos) {
-    tabela.innerHTML = "";
-
-    if (eventos.length === 0) {
-        tabela.innerHTML = `<tr><td colspan="3">Nenhuma atividade programada para hoje.</td></tr>`;
-        return;
-    }
-
-    eventos.sort((a, b) => {
-        return converterHorarioParaMinutos(a.horario) - converterHorarioParaMinutos(b.horario);
-    });
-
-    eventos.forEach(evento => {
-        const linha = document.createElement("tr");
-        const colunaProgramacao = document.createElement("td");
-        const colunaSala = document.createElement("td");
-        const colunaHorario = document.createElement("td");
-
-        colunaProgramacao.textContent = evento.programacao;
-        colunaSala.textContent = evento.sala;
-        colunaHorario.textContent = evento.horario;
-
-        linha.appendChild(colunaProgramacao);
-        linha.appendChild(colunaSala);
-        linha.appendChild(colunaHorario);
-        tabela.appendChild(linha);
-    });
-}
-
-/* ==========================================================
-   GOOGLE SHEETS
-   ========================================================== */
-function carregarPlanilha() {
-    const callback = "googleSheetsCallback_" + Date.now();
-
-    window[callback] = function(resposta) {
-        try {
-            processarPlanilha(resposta);
-        } catch (erro) {
-            console.error(erro);
-            mostrarErro("Erro ao processar os dados da planilha.");
-        } finally {
-            delete window[callback];
+        resultado = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2})$/);
+        if (resultado) {
+            const dia = resultado[1].padStart(2, "0");
+            const mes = resultado[2].padStart(2, "0");
+            const ano = "20" + resultado[3];
+            return `${ano}-${mes}-${dia}`;
         }
-    };
 
-    const consulta = "select A, C, D, F";
-    const url = "https://docs.google.com/spreadsheets/d/" + PLANILHA_ID + "/gviz/tq" +
-                "?gid=" + GID + "&headers=1" +
-                "&tqx=" + encodeURIComponent("responseHandler:" + callback) +
-                "&tq=" + encodeURIComponent(consulta);
-
-    const script = document.createElement("script");
-    script.src = url;
-    script.onerror = function() {
-        mostrarErro("Não foi possível acessar a Google Planilha. Verifique se ela está compartilhada como pública.");
-    };
-
-    document.body.appendChild(script);
-}
-
-/* ==========================================================
-   PROCESSAR RESPOSTA DO GOOGLE
-   ========================================================== */
-function processarPlanilha(resposta) {
-    if (!resposta || !resposta.table) {
-        mostrarErro("A Google Planilha não retornou dados.");
-        return;
+        if (texto.startsWith("Date(")) {
+            const numeros = texto.match(/\d+/g);
+            if (numeros && numeros.length >= 3) {
+                const ano = numeros[0];
+                const mes = String(Number(numeros[1]) + 1).padStart(2, "0");
+                const dia = String(numeros[2]).padStart(2, "0");
+                return `${ano}-${mes}-${dia}`;
+            }
+        }
+        return "";
     }
 
-    const linhas = resposta.table.rows;
-    const hoje = obterDataHoje();
-    const eventos = [];
+    /* ==========================================================
+       PEGAR VALOR DE UMA CÉLULA
+       ========================================================== */
+    function valorCelula(celula) {
+        if (!celula) return "";
+        if (celula.f !== undefined && celula.f !== null) return String(celula.f).trim();
+        if (celula.v !== undefined && celula.v !== null) return String(celula.v).trim();
+        return "";
+    }
 
-    linhas.forEach(linha => {
-        const celulas = linha.c || [];
-        const data = valorCelula(celulas[0]);
-        const programacao = valorCelula(celulas[1]);
-        const horario = valorCelula(celulas[2]);
-        const sala = valorCelula(celulas[3]);
+    /* ==========================================================
+       ORDENAR HORÁRIOS
+       ========================================================== */
+    function converterHorarioParaMinutos(horario) {
+        if (!horario) return 999999;
+        const resultado = horario.match(/(\d{1,2}):(\d{2})/);
+        if (!resultado) return 999999;
+        const hora = Number(resultado[1]);
+        const minuto = Number(resultado[2]);
+        return (hora * 60) + minuto;
+    }
 
-        const dataNormalizada = converterData(data);
-        if (dataNormalizada === "") return;
-        if (dataNormalizada !== hoje.normalizada) return;
-        if (programacao === "") return;
+    /* ==========================================================
+       MOSTRAR ERRO
+       ========================================================== */
+    function mostrarErro(mensagem) {
+        erroPlanilha.style.display = "block";
+        erroPlanilha.textContent = mensagem;
+        tabela.innerHTML = `<tr><td colspan="3">Não foi possível carregar a programação.</td></tr>`;
+    }
 
-        eventos.push({
-            programacao: programacao,
-            sala: sala,
-            horario: horario
+    /* ==========================================================
+       MOSTRAR PROGRAMAÇÃO
+       ========================================================== */
+    function mostrarProgramacao(eventos) {
+        tabela.innerHTML = ""; //Evita que os registros se dupliquem
+        const agora = new Date();
+        const horaAtual = agora.getHours();
+        const minutoAtual = agora.getMinutes();
+        const totalMinutosAtuais = minutoAtual + (horaAtual * 60);
+        let temEventosFuturos = false;
+
+        //Trata condições de lista vazia
+        if (eventos.length === 0) {
+            tabela.innerHTML = `<tr><td colspan="3">Nenhuma atividade programada para hoje.</td></tr>`;
+            return;
+        }
+
+        //Permite a comparação entre horas
+        eventos.sort((a, b) => {
+            return converterHorarioParaMinutos(a.horario) - converterHorarioParaMinutos(b.horario);
         });
-    });
 
-    mostrarProgramacao(eventos);
-    erroPlanilha.style.display = "none";
+        eventos.forEach(evento => {
 
-    const agora = new Date();
-    const hora = new Intl.DateTimeFormat("pt-BR", {
-        timeZone: "America/Sao_Paulo",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-    }).format(agora);
+            const horarioEventoMinutos = converterHorarioParaMinutos(evento.horario);
 
-    ultimaAtualizacao.textContent = "Atualizado às " + hora;
-}
+            if (totalMinutosAtuais <= horarioEventoMinutos) {
+                temEventosFuturos = true;
+                const linha = document.createElement("tr");
+                const colunaProgramacao = document.createElement("td");
+                const colunaSala = document.createElement("td");
+                const colunaHorario = document.createElement("td");
 
-/* ==========================================================
-   INICIALIZAÇÃO E ATUALIZAÇÃO
-   ========================================================== */
-mostrarData();
-carregarPlanilha();
+                colunaProgramacao.textContent = evento.programacao;
+                colunaSala.textContent = evento.sala;
+                colunaHorario.textContent = evento.horario;
 
-setInterval(function() {
-    carregarPlanilha();
+                linha.appendChild(colunaProgramacao);
+                linha.appendChild(colunaSala);
+                linha.appendChild(colunaHorario);
+                tabela.appendChild(linha);
+            }
+        });
+
+        if (!temEventosFuturos) {
+            tabela.innerHTML = `<tr><td colspan="3">Atividades encerradas</td></tr>`;
+            return;
+        }
+    }
+
+    /* ==========================================================
+       GOOGLE SHEETS
+       ========================================================== */
+    function carregarPlanilha() {
+        const callback = "googleSheetsCallback_" + Date.now();
+
+        window[callback] = function(resposta) {
+            try {
+                processarPlanilha(resposta);
+            } catch (erro) {
+                console.error(erro);
+                mostrarErro("Erro ao processar os dados da planilha.");
+            } finally {
+                delete window[callback];
+            }
+        };
+
+        const consulta = "select A, C, D, F";
+        const url = "https://docs.google.com/spreadsheets/d/" + PLANILHA_ID + "/gviz/tq" +
+                    "?gid=" + GID + "&headers=1" +
+                    "&tqx=" + encodeURIComponent("responseHandler:" + callback) +
+                    "&tq=" + encodeURIComponent(consulta);
+
+        const script = document.createElement("script");
+        script.src = url;
+        script.onerror = function() {
+            mostrarErro("Não foi possível acessar a Google Planilha. Verifique se ela está compartilhada como pública.");
+        };
+
+        document.body.appendChild(script);
+    }
+
+    /* ==========================================================
+       PROCESSAR RESPOSTA DO GOOGLE
+       ========================================================== */
+    function processarPlanilha(resposta) {
+        if (!resposta || !resposta.table) {
+            mostrarErro("A Google Planilha não retornou dados.");
+            return;
+        }
+
+        const linhas = resposta.table.rows;
+        const hoje = obterDataHoje();
+        const eventos = [];
+
+        linhas.forEach(linha => {
+            const celulas = linha.c || [];
+            const data = valorCelula(celulas[0]);
+            const programacao = valorCelula(celulas[1]);
+            const horario = valorCelula(celulas[2]);
+            const sala = valorCelula(celulas[3]);
+
+            const dataNormalizada = converterData(data);
+            if (dataNormalizada === "") return;
+            if (dataNormalizada !== hoje.normalizada) return;
+            if (programacao === "") return;
+
+            eventos.push({
+                programacao: programacao,
+                sala: sala,
+                horario: horario
+            });
+        });
+
+        mostrarProgramacao(eventos);
+        erroPlanilha.style.display = "none";
+
+        const agora = new Date();
+        const hora = new Intl.DateTimeFormat("pt-BR", {
+            timeZone: "America/Sao_Paulo",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        }).format(agora);
+
+        ultimaAtualizacao.textContent = "Atualizado às " + hora;
+    }
+
+    /* ==========================================================
+       INICIALIZAÇÃO E ATUALIZAÇÃO
+       ========================================================== */
     mostrarData();
-}, 10000);
+    carregarPlanilha();
 
-</script>
-</body>
-</html>
+    setInterval(function() {
+        carregarPlanilha();
+        mostrarData();
+    }, 10000);
+
+    </script>
+    </body>
+    </html>

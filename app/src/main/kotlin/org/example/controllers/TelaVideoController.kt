@@ -11,6 +11,7 @@ import uk.co.caprica.vlcj.factory.discovery.NativeDiscovery
 import uk.co.caprica.vlcj.javafx.videosurface.ImageViewVideoSurface
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 import java.io.File
+import com.sun.jna.NativeLibrary
 
 class TelaVideoController {
 
@@ -28,24 +29,30 @@ class TelaVideoController {
 
     @FXML
     fun initialize() {
-        // 1. Força a busca das DLLs do VLC no Windows
-        val vlcEncontrado = NativeDiscovery().discover()
-        println("🔍 VLC Nativo localizado no sistema? $vlcEncontrado")
+        val caminhoVLC = "C:\\Program Files\\VideoLAN\\VLC"
+        val dllVLC = File("$caminhoVLC\\libvlc.dll")
 
-        if (!vlcEncontrado) {
-            println("❌ ERRO CRÍTICO: O VLC Media Player 64-bits não foi encontrado no Windows!")
+        println("Procurando libvlc.dll em: ${dllVLC.absolutePath}")
+        println("Arquivo existe no disco? ${dllVLC.exists()}")
+
+        if (!dllVLC.exists()) {
+            println("ERRO CRITICO: O arquivo libvlc.dll nao foi encontrado na pasta informada.")
             return
         }
 
+        // Registra o caminho manualmente para o JNA encontrar as bibliotecas nativas
+        NativeLibrary.addSearchPath("libvlc", caminhoVLC)
+        NativeLibrary.addSearchPath("vlc", caminhoVLC)
+
         mediaPlayerFactory = MediaPlayerFactory()
         mediaPlayerVLC = mediaPlayerFactory?.mediaPlayers()?.newEmbeddedMediaPlayer()
-        
+
         videoImageView = ImageView()
-        
+
         videoImageView.fitWidthProperty().bind(painelVideo.widthProperty())
         videoImageView.fitHeightProperty().bind(painelVideo.heightProperty())
         videoImageView.isPreserveRatio = true
-        
+
         painelVideo.children.add(videoImageView)
 
         mediaPlayerVLC?.videoSurface()?.set(ImageViewVideoSurface(videoImageView))
