@@ -68,12 +68,14 @@
         </section>
     </main>
 
+       <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+        <script>eruda.init();</script>
+
     <script>
     /* ==========================================================
    CONFIGURAÇÃO DA GOOGLE PLANILHA
    ========================================================== */
 const PLANILHA_ID = "1S_qL4LVJYjflJ2JdJ503A-gRHlID8swDKY5eNavobfY";
-const GID = "653438749";
 
 /* ==========================================================
    ELEMENTOS DA PÁGINA
@@ -258,13 +260,14 @@ function carregarPlanilha() {
         } finally {
             delete window[callback];
             const scriptAntigo = document.getElementById(callback);
-            if(scriptAntigo) scriptAntigo.remove();
+            if (scriptAntigo) scriptAntigo.remove();
         }
     };
 
     const consulta = "select A, C, D, F";
+    // Observe que removemos o "&gid=" da URL abaixo:
     const url = "https://docs.google.com/spreadsheets/d/" + PLANILHA_ID + "/gviz/tq" +
-                "?gid=" + GID + "&headers=1" +
+                "?headers=1" +
                 "&tqx=" + encodeURIComponent("responseHandler:" + callback) +
                 "&tq=" + encodeURIComponent(consulta);
 
