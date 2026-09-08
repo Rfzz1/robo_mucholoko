@@ -70,71 +70,71 @@
 
     <script>
     /* ==========================================================
-       CONFIGURAÇÃO DA GOOGLE PLANILHA
-       ========================================================== */
-    const PLANILHA_ID = "1S_qL4LVJYjflJ2JdJ503A-gRHlID8swDKY5eNavobfY";
-    const GID = "653438749";
+   CONFIGURAÇÃO DA GOOGLE PLANILHA
+   ========================================================== */
+const PLANILHA_ID = "1S_qL4LVJYjflJ2JdJ503A-gRHlID8swDKY5eNavobfY";
+const GID = "653438749";
 
-    /* ==========================================================
-       ELEMENTOS DA PÁGINA
-       ========================================================== */
-    const tabela = document.getElementById("tabelaProgramacao");
-    const dataAtual = document.getElementById("dataAtual");
-    const erroPlanilha = document.getElementById("erroPlanilha");
-    const ultimaAtualizacao = document.getElementById("ultimaAtualizacao");
+/* ==========================================================
+   ELEMENTOS DA PÁGINA
+   ========================================================== */
+const tabela = document.getElementById("tabelaProgramacao");
+const dataAtual = document.getElementById("dataAtual");
+const erroPlanilha = document.getElementById("erroPlanilha");
+const ultimaAtualizacao = document.getElementById("ultimaAtualizacao");
 
-    /* ==========================================================
-       DATA ATUAL
-       ========================================================== */
-    function obterDataHoje() {
-        const agora = new Date();
-        const partes = new Intl.DateTimeFormat("en-CA", {
-            timeZone: "America/Sao_Paulo",
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit"
-        }).formatToParts(agora);
+/* ==========================================================
+   DATA ATUAL
+   ========================================================== */
+function obterDataHoje() {
+    const agora = new Date();
+    const partes = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "America/Sao_Paulo",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    }).formatToParts(agora);
 
-        let ano = "", mes = "", dia = "";
+    let ano = "", mes = "", dia = "";
+    partes.forEach(parte => {
+        if (parte.type === "year") ano = parte.value;
+        if (parte.type === "month") mes = parte.value;
+        if (parte.type === "day") dia = parte.value;
+    });
 
-        partes.forEach(parte => {
-            if (parte.type === "year") ano = parte.value;
-            if (parte.type === "month") mes = parte.value;
-            if (parte.type === "day") dia = parte.value;
-        });
+    return {
+        ano: ano,
+        mes: mes,
+        dia: dia,
+        normalizada: `${ano}-${mes}-${dia}`,
+        exibicao: `${dia}/${mes}/${ano}`
+    };
+}
 
-        return {
-            ano: ano,
-            mes: mes,
-            dia: dia,
-            normalizada: `${ano}-${mes}-${dia}`,
-            exibicao: `${dia}/${mes}/${ano}`
-        };
-    }
+/* ==========================================================
+   MOSTRAR DATA
+   ========================================================== */
+function mostrarData() {
+    const hoje = obterDataHoje();
+    const data = new Date(`${hoje.ano}-${hoje.mes}-${hoje.dia}T12:00:00`);
+    const dias = [
+        "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira",
+        "Quinta-feira", "Sexta-feira", "Sábado"
+    ];
+    const nomeDia = dias[data.getDay()];
+    dataAtual.innerHTML = `${nomeDia}, <strong>${hoje.exibicao}</strong>`;
+}
 
-    /* ==========================================================
-       MOSTRAR DATA
-       ========================================================== */
-    function mostrarData() {
-        const hoje = obterDataHoje();
-        const data = new Date(`${hoje.ano}-${hoje.mes}-${hoje.dia}T12:00:00`);
-        const dias = [
-            "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira",
-            "Quinta-feira", "Sexta-feira", "Sábado"
-        ];
-        const nomeDia = dias[data.getDay()];
-        dataAtual.innerHTML = `${nomeDia}, <strong>${hoje.exibicao}</strong>`;
-    }
+/* ==========================================================
+   CONVERTER DATA DA PLANILHA
+   ========================================================== */
+function converterData(valor) {
+    if (valor === null || valor === undefined) return "";
+    let texto = String(valor).trim();
+    if (texto === "") return "";
 
-    /* ==========================================================
-       CONVERTER DATA DA PLANILHA
-       ========================================================== */
-    function converterData(valor) {
-        if (valor === null || valor === undefined) return "";
-        let texto = String(valor).trim();
-        if (texto === "") return "";
-
-        if (texto.startsWith("Date(")) {
+    // 1. Tenta formato bruto do Google (Date(Ano, Mes, Dia))
+    if (texto.startsWith("Date(")) {
         const numeros = texto.match(/\d+/g);
         if (numeros && numeros.length >= 3) {
             const ano = numeros[0];
@@ -144,151 +144,144 @@
         }
     }
 
-        const parteData = texto.split(" ")[0];
+    // 2. Remove possíveis horas embutidas no texto (ex: 08/09/2026 14:00 vira 08/09/2026)
+    const parteData = texto.split(" ")[0];
 
-        let resultado = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-        if (resultado) {
-            const dia = resultado[1].padStart(2, "0");
-            const mes = resultado[2].padStart(2, "0");
-            const ano = resultado[3];
-            return `${ano}-${mes}-${dia}`;
+    let resultado = parteData.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (resultado) {
+        const dia = resultado[1].padStart(2, "0");
+        const mes = resultado[2].padStart(2, "0");
+        const ano = resultado[3];
+        return `${ano}-${mes}-${dia}`;
+    }
+
+    resultado = parteData.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2})$/);
+    if (resultado) {
+        const dia = resultado[1].padStart(2, "0");
+        const mes = resultado[2].padStart(2, "0");
+        const ano = "20" + resultado[3];
+        return `${ano}-${mes}-${dia}`;
+    }
+    
+    // Formato ISO: YYYY-MM-DD
+    resultado = parteData.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    if (resultado) {
+        return `${resultado[1]}-${resultado[2].padStart(2, "0")}-${resultado[3].padStart(2, "0")}`;
+    }
+
+    return "";
+}
+
+/* ==========================================================
+   PEGAR VALOR DE UMA CÉLULA
+   ========================================================== */
+function valorCelula(celula, preferirBruto = false) {
+    if (!celula) return "";
+    // Ao buscar datas, é mais seguro olhar para celula.v (valor bruto) do que celula.f (texto formatado)
+    if (preferirBruto && celula.v !== undefined && celula.v !== null) return String(celula.v).trim();
+    if (celula.f !== undefined && celula.f !== null) return String(celula.f).trim();
+    if (celula.v !== undefined && celula.v !== null) return String(celula.v).trim();
+    return "";
+}
+
+/* ==========================================================
+   ORDENAR HORÁRIOS
+   ========================================================== */
+function converterHorarioParaMinutos(horario) {
+    if (!horario) return 999999;
+    const resultado = horario.match(/(\d{1,2}):(\d{2})/);
+    if (!resultado) return 999999;
+    const hora = Number(resultado[1]);
+    const minuto = Number(resultado[2]);
+    return (hora * 60) + minuto;
+}
+
+/* ==========================================================
+   MOSTRAR ERRO
+   ========================================================== */
+function mostrarErro(mensagem) {
+    erroPlanilha.style.display = "block";
+    erroPlanilha.textContent = mensagem;
+    tabela.innerHTML = `<tr><td colspan="3">Não foi possível carregar a programação.</td></tr>`;
+}
+
+/* ==========================================================
+   MOSTRAR PROGRAMAÇÃO
+   ========================================================== */
+function mostrarProgramacao(eventos) {
+    tabela.innerHTML = "";
+    const agora = new Date();
+    const horaAtual = agora.getHours();
+    const minutoAtual = agora.getMinutes();
+    const totalMinutosAtuais = minutoAtual + (horaAtual * 60);
+
+    if (eventos.length === 0) {
+        tabela.innerHTML = `<tr><td colspan="3">Nenhuma atividade programada para hoje.</td></tr>`;
+        return;
+    }
+
+    eventos.sort((a, b) => {
+        return converterHorarioParaMinutos(a.horario) - converterHorarioParaMinutos(b.horario);
+    });
+
+    eventos.forEach(evento => {
+        const horarioEventoMinutos = converterHorarioParaMinutos(evento.horario);
+        
+        const linha = document.createElement("tr");
+        const colunaProgramacao = document.createElement("td");
+        const colunaSala = document.createElement("td");
+        const colunaHorario = document.createElement("td");
+
+        colunaProgramacao.textContent = evento.programacao;
+        colunaSala.textContent = evento.sala;
+        colunaHorario.textContent = evento.horario;
+
+        linha.appendChild(colunaProgramacao);
+        linha.appendChild(colunaSala);
+        linha.appendChild(colunaHorario);
+        tabela.appendChild(linha);
+    });
+}
+
+/* ==========================================================
+   GOOGLE SHEETS
+   ========================================================== */
+function carregarPlanilha() {
+    const callback = "googleSheetsCallback_" + Date.now();
+
+    window[callback] = function(resposta) {
+        try {
+            processarPlanilha(resposta);
+        } catch (erro) {
+            console.error(erro);
+            mostrarErro("Erro ao processar os dados da planilha.");
+        } finally {
+            delete window[callback];
+            const scriptAntigo = document.getElementById(callback);
+            if(scriptAntigo) scriptAntigo.remove();
         }
+    };
 
-        resultado = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2})$/);
-        if (resultado) {
-            const dia = resultado[1].padStart(2, "0");
-            const mes = resultado[2].padStart(2, "0");
-            const ano = "20" + resultado[3];
-            return `${ano}-${mes}-${dia}`;
-        }
+    const consulta = "select A, C, D, F";
+    const url = "https://docs.google.com/spreadsheets/d/" + PLANILHA_ID + "/gviz/tq" +
+                "?gid=" + GID + "&headers=1" +
+                "&tqx=" + encodeURIComponent("responseHandler:" + callback) +
+                "&tq=" + encodeURIComponent(consulta);
 
-        resultado = parteData.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
-        if (resultado) {
-            return '${resultado[1]}-${resultado[2].padStart(2, "0")}-${resultado[3].padStart(2, "0")}';
-        }
+    const script = document.createElement("script");
+    script.id = callback;
+    script.src = url;
+    script.onerror = function() {
+        mostrarErro("Não foi possível acessar a Google Planilha.");
+    };
 
-        return "";
-    }
+    document.body.appendChild(script);
+}
 
-    /* ==========================================================
-       PEGAR VALOR DE UMA CÉLULA
-       ========================================================== */
-    function valorCelula(celula, preferirBruto = false) {
-        if (!celula) return "";
-        // Ao buscar datas, é mais seguro olhar para celula.v (valor bruto) do que celula.f (texto formatado)
-        if (preferirBruto && celula.v !== undefined && celula.v !== null) return String(celula.v).trim();
-        if (celula.f !== undefined && celula.f !== null) return String(celula.f).trim();
-        if (celula.v !== undefined && celula.v !== null) return String(celula.v).trim();
-        return "";
-    }
-
-    /* ==========================================================
-       ORDENAR HORÁRIOS
-       ========================================================== */
-    function converterHorarioParaMinutos(horario) {
-        if (!horario) return 999999;
-        const resultado = horario.match(/(\d{1,2}):(\d{2})/);
-        if (!resultado) return 999999;
-        const hora = Number(resultado[1]);
-        const minuto = Number(resultado[2]);
-        return (hora * 60) + minuto;
-    }
-
-    /* ==========================================================
-       MOSTRAR ERRO
-       ========================================================== */
-    function mostrarErro(mensagem) {
-        erroPlanilha.style.display = "block";
-        erroPlanilha.textContent = mensagem;
-        tabela.innerHTML = `<tr><td colspan="3">Não foi possível carregar a programação.</td></tr>`;
-    }
-
-    /* ==========================================================
-       MOSTRAR PROGRAMAÇÃO
-       ========================================================== */
-    function mostrarProgramacao(eventos) {
-        tabela.innerHTML = ""; //Evita que os registros se dupliquem
-        const agora = new Date();
-        const horaAtual = agora.getHours();
-        const minutoAtual = agora.getMinutes();
-        const totalMinutosAtuais = minutoAtual + (horaAtual * 60);
-        let temEventosFuturos = false;
-
-        //Trata condições de lista vazia
-        if (eventos.length === 0) {
-            tabela.innerHTML = `<tr><td colspan="3">Nenhuma atividade programada para hoje.</td></tr>`;
-            return;
-        }
-
-        //Permite a comparação entre horas
-        eventos.sort((a, b) => {
-            return converterHorarioParaMinutos(a.horario) - converterHorarioParaMinutos(b.horario);
-        });
-
-        eventos.forEach(evento => {
-
-            const horarioEventoMinutos = converterHorarioParaMinutos(evento.horario);
-
-            if (totalMinutosAtuais <= horarioEventoMinutos) {
-                temEventosFuturos = true;
-                const linha = document.createElement("tr");
-                const colunaProgramacao = document.createElement("td");
-                const colunaSala = document.createElement("td");
-                const colunaHorario = document.createElement("td");
-
-                colunaProgramacao.textContent = evento.programacao;
-                colunaSala.textContent = evento.sala;
-                colunaHorario.textContent = evento.horario;
-
-                linha.appendChild(colunaProgramacao);
-                linha.appendChild(colunaSala);
-                linha.appendChild(colunaHorario);
-                tabela.appendChild(linha);
-            }
-        });
-
-        if (!temEventosFuturos) {
-            tabela.innerHTML = `<tr><td colspan="3">Atividades encerradas</td></tr>`;
-            return;
-        }
-    }
-
-    /* ==========================================================
-       GOOGLE SHEETS
-       ========================================================== */
-    function carregarPlanilha() {
-        const callback = "googleSheetsCallback_" + Date.now();
-
-        window[callback] = function(resposta) {
-            try {
-                processarPlanilha(resposta);
-            } catch (erro) {
-                console.error(erro);
-                mostrarErro("Erro ao processar os dados da planilha.");
-            } finally {
-                delete window[callback];
-            }
-        };
-
-        const consulta = "select A, C, D, F";
-        const url = "https://docs.google.com/spreadsheets/d/" + PLANILHA_ID + "/gviz/tq" +
-                    "?gid=" + GID + "&headers=1" +
-                    "&tqx=" + encodeURIComponent("responseHandler:" + callback) +
-                    "&tq=" + encodeURIComponent(consulta);
-
-        const script = document.createElement("script");
-        script.src = url;
-        script.onerror = function() {
-            mostrarErro("Não foi possível acessar a Google Planilha. Verifique se ela está compartilhada como pública.");
-        };
-
-        document.body.appendChild(script);
-    }
-
-    /* ==========================================================
-       PROCESSAR RESPOSTA DO GOOGLE
-       ========================================================== */
-    function processarPlanilha(resposta) {
+/* ==========================================================
+   PROCESSAR RESPOSTA DO GOOGLE
+   ========================================================== */
+function processarPlanilha(resposta) {
     if (!resposta || !resposta.table) {
         mostrarErro("A Google Planilha não retornou dados.");
         return;
@@ -298,16 +291,23 @@
     const hoje = obterDataHoje();
     const eventos = [];
 
-    linhas.forEach(linha => {
+    console.log("=== INÍCIO DO DEBUG ===");
+    console.log("Data de hoje esperada pelo sistema:", hoje.normalizada);
+
+    linhas.forEach((linha,index) => {
         const celulas = linha.c || [];
         
-        // true: Força pegar o formato Date(...) bruto direto do Google, evitando problemas de formatação
-        const data = valorCelula(celulas[0], true); 
+        const dataBruta = valorCelula(celulas[0], true); 
+        const dataFormatada = valorCelula(celulas[0], false);
         const programacao = valorCelula(celulas[1]);
         const horario = valorCelula(celulas[2]);
         const sala = valorCelula(celulas[3]);
+        const dataNormalizada = converterData(dataBruta) || converterData(dataFormatada);
 
-        const dataNormalizada = converterData(data);
+        if (programacao !== "") {
+            console.log(`Linha ${index + 2} | Lido da Planilha: "${dataBruta}" (texto: "${dataFormatada}") -> Convertido para: "${dataNormalizada}" | Atividade: ${programacao}`);
+        }
+        
         if (dataNormalizada === "") return;
         if (dataNormalizada !== hoje.normalizada) return;
         if (programacao === "") return;
@@ -318,6 +318,9 @@
             horario: horario
         });
     });
+
+    console.log("Total de eventos aprovados no filtro de hoje:", eventos.length);
+    console.log("=== FIM DO DEBUG ===");
 
     mostrarProgramacao(eventos);
     erroPlanilha.style.display = "none";
@@ -333,17 +336,16 @@
     ultimaAtualizacao.textContent = "Atualizado às " + hora;
 }
 
-    /* ==========================================================
-       INICIALIZAÇÃO E ATUALIZAÇÃO
-       ========================================================== */
-    mostrarData();
+/* ==========================================================
+   INICIALIZAÇÃO E ATUALIZAÇÃO
+   ========================================================== */
+mostrarData();
+carregarPlanilha();
+
+setInterval(function() {
     carregarPlanilha();
-
-    setInterval(function() {
-        carregarPlanilha();
-        mostrarData();
-    }, 10000);
-
+    mostrarData();
+}, 10000);
     </script>
     </body>
     </html>
