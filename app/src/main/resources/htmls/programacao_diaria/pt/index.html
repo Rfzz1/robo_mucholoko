@@ -134,6 +134,18 @@
         let texto = String(valor).trim();
         if (texto === "") return "";
 
+        if (texto.startsWith("Date(")) {
+        const numeros = texto.match(/\d+/g);
+        if (numeros && numeros.length >= 3) {
+            const ano = numeros[0];
+            const mes = String(Number(numeros[1]) + 1).padStart(2, "0");
+            const dia = String(numeros[2]).padStart(2, "0");
+            return `${ano}-${mes}-${dia}`;
+        }
+    }
+
+        const parteData = texto.split(" ")[0];
+
         let resultado = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
         if (resultado) {
             const dia = resultado[1].padStart(2, "0");
@@ -150,23 +162,21 @@
             return `${ano}-${mes}-${dia}`;
         }
 
-        if (texto.startsWith("Date(")) {
-            const numeros = texto.match(/\d+/g);
-            if (numeros && numeros.length >= 3) {
-                const ano = numeros[0];
-                const mes = String(Number(numeros[1]) + 1).padStart(2, "0");
-                const dia = String(numeros[2]).padStart(2, "0");
-                return `${ano}-${mes}-${dia}`;
-            }
+        resultado = parteData.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+        if (resultado) {
+            return '${resultado[1]}-${resultado[2].padStart(2, "0")}-${resultado[3].padStart(2, "0")}';
         }
+
         return "";
     }
 
     /* ==========================================================
        PEGAR VALOR DE UMA CÉLULA
        ========================================================== */
-    function valorCelula(celula) {
+    function valorCelula(celula, preferirBruto = false) {
         if (!celula) return "";
+        // Ao buscar datas, é mais seguro olhar para celula.v (valor bruto) do que celula.f (texto formatado)
+        if (preferirBruto && celula.v !== undefined && celula.v !== null) return String(celula.v).trim();
         if (celula.f !== undefined && celula.f !== null) return String(celula.f).trim();
         if (celula.v !== undefined && celula.v !== null) return String(celula.v).trim();
         return "";
@@ -279,47 +289,49 @@
        PROCESSAR RESPOSTA DO GOOGLE
        ========================================================== */
     function processarPlanilha(resposta) {
-        if (!resposta || !resposta.table) {
-            mostrarErro("A Google Planilha não retornou dados.");
-            return;
-        }
-
-        const linhas = resposta.table.rows;
-        const hoje = obterDataHoje();
-        const eventos = [];
-
-        linhas.forEach(linha => {
-            const celulas = linha.c || [];
-            const data = valorCelula(celulas[0]);
-            const programacao = valorCelula(celulas[1]);
-            const horario = valorCelula(celulas[2]);
-            const sala = valorCelula(celulas[3]);
-
-            const dataNormalizada = converterData(data);
-            if (dataNormalizada === "") return;
-            if (dataNormalizada !== hoje.normalizada) return;
-            if (programacao === "") return;
-
-            eventos.push({
-                programacao: programacao,
-                sala: sala,
-                horario: horario
-            });
-        });
-
-        mostrarProgramacao(eventos);
-        erroPlanilha.style.display = "none";
-
-        const agora = new Date();
-        const hora = new Intl.DateTimeFormat("pt-BR", {
-            timeZone: "America/Sao_Paulo",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit"
-        }).format(agora);
-
-        ultimaAtualizacao.textContent = "Atualizado às " + hora;
+    if (!resposta || !resposta.table) {
+        mostrarErro("A Google Planilha não retornou dados.");
+        return;
     }
+
+    const linhas = resposta.table.rows;
+    const hoje = obterDataHoje();
+    const eventos = [];
+
+    linhas.forEach(linha => {
+        const celulas = linha.c || [];
+        
+        // true: Força pegar o formato Date(...) bruto direto do Google, evitando problemas de formatação
+        const data = valorCelula(celulas[0], true); 
+        const programacao = valorCelula(celulas[1]);
+        const horario = valorCelula(celulas[2]);
+        const sala = valorCelula(celulas[3]);
+
+        const dataNormalizada = converterData(data);
+        if (dataNormalizada === "") return;
+        if (dataNormalizada !== hoje.normalizada) return;
+        if (programacao === "") return;
+
+        eventos.push({
+            programacao: programacao,
+            sala: sala,
+            horario: horario
+        });
+    });
+
+    mostrarProgramacao(eventos);
+    erroPlanilha.style.display = "none";
+
+    const agora = new Date();
+    const hora = new Intl.DateTimeFormat("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    }).format(agora);
+
+    ultimaAtualizacao.textContent = "Atualizado às " + hora;
+}
 
     /* ==========================================================
        INICIALIZAÇÃO E ATUALIZAÇÃO
