@@ -8,6 +8,8 @@ import javafx.stage.Stage
 import org.example.model.Sessao
 import org.example.utils.Navegador
 import java.io.File
+import javafx.scene.*
+import javafx.fxml.FXMLLoader
 
 class TerceiraPagina {
 
@@ -99,27 +101,41 @@ class TerceiraPagina {
     @FXML
     fun iniciarJogo(event: ActionEvent) {
         try {
-            // 1. Descobre o caminho relativo
             val arquivoExe = File(System.getProperty("user.dir"), "jogo/WorkBot.exe")
 
             if (arquivoExe.exists()) {
-                // 2. Minimiza a tela da barriga usando safe call (?)
-                Sessao.palcoBarriga?.isIconified = true
+                // 1. Coloca uma tela preta na barriga para evitar que o fundo apareça
+                Platform.runLater {
+                    Sessao.palcoBarriga?.let { palco ->
+                        val telaPreta = javafx.scene.layout.Pane().apply {
+                            style = "-fx-background-color: black;"
+                        }
+                        palco.scene = Scene(telaPreta)
+                        palco.isFullScreen = true
+                    }
+                }
 
-                // 3. Inicia o processo do jogo
+                // 2. Inicia o processo do jogo
                 val processo = ProcessBuilder(arquivoExe.absolutePath)
                 processo.directory(arquivoExe.parentFile)
                 val procAtivo = processo.start()
 
-                // 4. Cria uma thread em segundo plano para esperar o jogo fechar
+                // 3. Aguarda o fechamento do jogo em segundo plano
                 Thread {
                     procAtivo.waitFor()
 
-                    // 5. Quando o jogo fechar, volta a exibir a barriga em tela cheia usando safe call (?)
+                    // 4. Quando o jogo fecha, recarrega o FXML original da barriga do zero
                     Platform.runLater {
-                        Sessao.palcoBarriga?.isIconified = false
-                        Sessao.palcoBarriga?.isFullScreen = true
-                        Sessao.palcoBarriga?.requestFocus()
+                        Sessao.palcoBarriga?.let { palco ->
+                            val loaderCentral = FXMLLoader(javaClass.getResource("/menu/Barriga.fxml"))
+                            val rootCentral = loaderCentral.load<Parent>()
+
+                            palco.scene = Scene(rootCentral)
+                            palco.isFullScreen = true
+                            palco.fullScreenExitHint = ""
+
+                            Sessao.palcoBarriga = palco
+                        }
                     }
                 }.start()
 

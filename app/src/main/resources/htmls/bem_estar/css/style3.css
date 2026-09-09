@@ -1,21 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Aoboshi+One&display=swap');
 
-
 /* ==========================================================
    RESET
    ========================================================== */
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-
 /* ==========================================================
    VARIÁVEIS
    ========================================================== */
-
 :root {
     --azul-normal: #0000b7;
     --branco: #ffffff;
@@ -24,517 +20,256 @@
     --ciano: #5ce1e6;
 }
 
-
 /* ==========================================================
-   BODY
+   BODY E CONTAINER
    ========================================================== */
-
 body {
-    margin: 0;
-    padding: 0;
-
     background-color: var(--branco-cinza);
-
     font-family: 'Aoboshi One', serif;
-
     overflow-x: hidden;
-}
-
-
-/* ==========================================================
-   CONTAINER / LARGURA DA PÁGINA
-   ========================================================== */
-
-body {
     max-width: 1080px;
     margin: 0 auto;
 }
 
-
 /* ==========================================================
    TOPO
    ========================================================== */
-
 .menu {
     width: 100%;
     height: 325px;
-
     background-color: rgba(0, 0, 183, 0.85);
-
     color: var(--branco);
-
     display: flex;
     flex-direction: column;
-
     justify-content: center;
     align-items: center;
-
     position: relative;
-
     text-align: center;
-
     padding: 30px;
 }
-
-
-/* ==========================================================
-   TEXTOS DO TOPO
-   ========================================================== */
 
 .menu h1,
 .menu h3,
 .menu h5 {
     position: static;
-
     transform: none;
-
     width: auto;
-
     font-family: 'Aoboshi One', serif;
-
     margin: 0;
 }
 
-
 .menu h1 {
     color: var(--branco);
-
     font-size: 60px;
-
     line-height: 1.1;
 }
 
-
 .menu h3 {
     color: var(--ciano);
-
     font-size: 35px;
-
     margin: 8px 0;
-
     line-height: 1.2;
 }
-
 
 .menu h5 {
     color: var(--branco);
-
     font-size: 28px;
-
     line-height: 1.2;
 }
-
-
-/* ==========================================================
-   LOGO
-   ========================================================== */
 
 .logo {
     width: 120px;
     height: auto;
-
     position: absolute;
-
     top: 20px;
     left: 20px;
 }
 
-
 /* ==========================================================
    BLOCOS PRINCIPAIS
    ========================================================== */
-
 .ceit,
 .pilates,
 .nutricionista,
 .psicologa {
-
     width: calc(100% - 40px);
-
     min-height: 400px;
-
     margin: 30px 20px 0;
-
     display: flex;
-
     align-items: center;
-
     gap: 30px;
-
     padding: 20px;
-
     border-radius: 20px;
+    background-color: transparent; /* Padrão para os blocos */
 }
-
-
-/* ==========================================================
-   BLOCO CEIT
-   ========================================================== */
 
 .ceit {
     background-color: var(--azul-normal);
-
     color: var(--branco);
 }
 
-
+/* ==========================================================
+   TEXTOS DOS BLOCOS
+   ========================================================== */
 .ceit_texto {
     width: 55%;
-
     font-size: 26px;
-
     line-height: 1.45;
-
     text-align: justify;
-
     font-weight: bold;
 }
-
-
-.ceit_imagem {
-    width: 42%;
-    max-width: 400px;
-
-    height: 350px;
-
-    object-fit: cover;
-
-    border-radius: 20px;
-
-    flex-shrink: 0;
-}
-
-
-/* ==========================================================
-   TEXTOS DOS OUTROS BLOCOS
-   ========================================================== */
 
 .pilates_texto,
 .nutricionista_texto,
 .psicologa_texto {
-
     width: 55%;
-
     color: var(--preto);
-
     font-size: 26px;
-
     line-height: 1.45;
-
     text-align: justify;
-
     font-weight: bold;
 }
 
-
-/* ==========================================================
-   BLOCO PILATES
-   ========================================================== */
-
-.pilates {
-    background-color: transparent;
-}
-
-
-.bemestar_imagem {
-    width: 42%;
-    max-width: 400px;
-
-    height: 350px;
-
-    object-fit: cover;
-
-    border-radius: 20px;
-
-    flex-shrink: 0;
-}
-
-
-/* ==========================================================
-   BLOCO NUTRICIONISTA
-   ========================================================== */
-
-.nutricionista {
-    background-color: transparent;
-}
-
-
-/* Imagem fica à esquerda */
-
-.entradabemestar_imagem {
-    width: 42%;
-    max-width: 400px;
-
-    height: 350px;
-
-    object-fit: cover;
-
-    border-radius: 20px;
-
-    flex-shrink: 0;
-}
-
-
-/* Texto fica à direita */
-
+/* Posição inversa no desktop para o texto da nutricionista */
 .nutricionista_texto {
     order: 2;
 }
 
-
-/* Imagem fica à esquerda */
-
-.entradabemestar_imagem {
-    order: 1;
-}
-
-
 /* ==========================================================
-   BLOCO PSICÓLOGA
+   IMAGENS DOS BLOCOS
    ========================================================== */
-
-.psicologa {
-    background-color: transparent;
-}
-
-
+/* Agrupando todas as classes de imagem para padronizar o tamanho */
+.ceit_imagem,
+.bemestar_imagem, 
+.pilates_imagem, /* Adicionado para ES/EN */
+.entradabemestar_imagem, 
+.nutricionista_imagem, /* Adicionado para ES/EN */
 .psicologa_imagem {
     width: 42%;
     max-width: 400px;
-
     height: 350px;
-
     object-fit: cover;
-
     border-radius: 20px;
-
     flex-shrink: 0;
 }
 
+/* Posição inversa no desktop para a imagem da nutricionista */
+.entradabemestar_imagem,
+.nutricionista_imagem {
+    order: 1;
+}
 
 /* ==========================================================
-   RESPONSIVIDADE
+   RESPONSIVIDADE - ATÉ 800PX
    ========================================================== */
-
 @media screen and (max-width: 800px) {
-
-
-    /* ======================================================
-       TOPO
-       ====================================================== */
 
     .menu {
         height: 260px;
-
         padding: 20px;
     }
 
-
-    .menu h1 {
-        font-size: 42px;
-    }
-
-
-    .menu h3 {
-        font-size: 25px;
-
-        margin: 5px 0;
-    }
-
-
-    .menu h5 {
-        font-size: 19px;
-    }
-
+    .menu h1 { font-size: 42px; }
+    .menu h3 { font-size: 25px; margin: 5px 0; }
+    .menu h5 { font-size: 19px; }
 
     .logo {
         width: 90px;
-
         top: 15px;
         left: 15px;
     }
 
-
-    /* ======================================================
-       BLOCOS
-       ====================================================== */
-
     .ceit,
     .pilates,
     .nutricionista,
     .psicologa {
-
         width: calc(100% - 24px);
-
         margin: 20px 12px 0;
-
         padding: 15px;
-
         min-height: auto;
-
-        display: flex;
-
         flex-direction: column;
-
         align-items: center;
-
         gap: 20px;
-
         border-radius: 15px;
     }
-
-
-    /* ======================================================
-       IMAGENS
-       ====================================================== */
 
     .ceit_imagem,
     .bemestar_imagem,
+    .pilates_imagem, /* Adicionado */
     .entradabemestar_imagem,
+    .nutricionista_imagem, /* Adicionado */
     .psicologa_imagem {
-
         width: 100%;
-
         max-width: 500px;
-
         height: 280px;
-
-        object-fit: cover;
-
         border-radius: 15px;
     }
-
-
-    /* ======================================================
-       TEXTOS
-       ====================================================== */
 
     .ceit_texto,
     .pilates_texto,
     .nutricionista_texto,
     .psicologa_texto {
-
         width: 100%;
-
         font-size: 19px;
-
         line-height: 1.35;
-
-        text-align: justify;
     }
 
-
-    /* ======================================================
-       ORDEM NUTRICIONISTA
-       ====================================================== */
-
+    /* Corrige a ordem no mobile (imagem acima, texto abaixo) */
     .nutricionista_texto {
-        order: 1;
+        order: 2; /* Texto embaixo */
     }
 
-
-    .entradabemestar_imagem {
-        order: 2;
+    .entradabemestar_imagem,
+    .nutricionista_imagem {
+        order: 1; /* Imagem em cima */
     }
 }
-
 
 /* ==========================================================
    TELAS PEQUENAS - ATÉ 600PX
    ========================================================== */
-
 @media screen and (max-width: 600px) {
-
-
-    /* ======================================================
-       TOPO
-       ====================================================== */
 
     .menu {
         height: 220px;
-
         padding: 15px;
     }
 
-
-    .menu h1 {
-        font-size: 32px;
-    }
-
-
-    .menu h3 {
-        font-size: 20px;
-
-        margin: 4px 0;
-    }
-
-
-    .menu h5 {
-        font-size: 15px;
-    }
-
+    .menu h1 { font-size: 32px; }
+    .menu h3 { font-size: 20px; margin: 4px 0; }
+    .menu h5 { font-size: 15px; }
 
     .logo {
         width: 70px;
-
         top: 10px;
         left: 10px;
     }
-
-
-    /* ======================================================
-       BLOCOS
-       ====================================================== */
 
     .ceit,
     .pilates,
     .nutricionista,
     .psicologa {
-
         width: calc(100% - 20px);
-
         margin: 15px 10px 0;
-
         padding: 12px;
-
         gap: 15px;
-
-        border-radius: 15px;
     }
-
-
-    /* ======================================================
-       IMAGENS
-       ====================================================== */
 
     .ceit_imagem,
     .bemestar_imagem,
+    .pilates_imagem, /* Adicionado */
     .entradabemestar_imagem,
+    .nutricionista_imagem, /* Adicionado */
     .psicologa_imagem {
-
-        width: 100%;
-
-        max-width: 100%;
-
         height: 220px;
-
         border-radius: 12px;
     }
-
-
-    /* ======================================================
-       TEXTOS
-       ====================================================== */
 
     .ceit_texto,
     .pilates_texto,
     .nutricionista_texto,
     .psicologa_texto {
-
-        width: 100%;
-
         font-size: 16px;
-
         line-height: 1.3;
     }
 }
