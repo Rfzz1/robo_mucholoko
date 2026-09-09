@@ -6,17 +6,21 @@ import javafx.scene.Node
 import javafx.scene.Parent
 import javafx.stage.Stage
 import org.example.model.Sessao
+import javafx.scene.control.Alert
 
 object Navegador {
 
-    // Troca de tela genérica
     fun trocarTela(event: ActionEvent, caminhoFxml: String) {
         try {
-            println("🔄 Navegador: Carregando FXML -> $caminhoFxml")
             val recurso = javaClass.getResource(caminhoFxml)
             
             if (recurso == null) {
-                println("❌ ERRO: FXML não encontrado em $caminhoFxml")
+                // MOSTRAR ALERTA NA TELA SE O FXML NÃO FOR ENCONTRADO
+                val alerta = Alert(Alert.AlertType.ERROR)
+                alerta.title = "Erro de Navegação"
+                alerta.headerText = "Arquivo FXML não encontrado!"
+                alerta.contentText = "O sistema tentou abrir:\n$caminhoFxml\nMas o arquivo não existe no executável."
+                alerta.showAndWait()
                 return
             }
 
@@ -28,8 +32,12 @@ object Navegador {
             palco.show()
             
         } catch (e: Exception) {
-            println("❌ ERRO CRÍTICO ao tentar trocar de tela para $caminhoFxml: ${e.message}")
-            e.printStackTrace()
+            // MOSTRAR ALERTA SE O FXML TIVER ERROS INTERNOS (EX: IMAGEM FALTANDO)
+            val alerta = Alert(Alert.AlertType.ERROR)
+            alerta.title = "Erro ao carregar FXML"
+            alerta.headerText = "O FXML foi encontrado, mas algo dentro dele quebrou."
+            alerta.contentText = e.toString() + "\nCausa: " + e.cause?.message
+            alerta.showAndWait()
         }
     }
 
