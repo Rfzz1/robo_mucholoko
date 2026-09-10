@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane
+    maxHeight="-Infinity"
+    maxWidth="-Infinity"
+    minHeight="768.0"
+    minWidth="1366.0"
+    prefHeight="768.0"
+    prefWidth="1366.0"
+    style="-fx-background-color: #dfdfeb;"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="org.example.controllers.saidas">
+
+    <children>
+
+        <!-- ========================= -->
+        <!-- CABEÇALHO -->
+        <!-- ========================= -->
+
+        <Pane
+            layoutX="0.0"
+            layoutY="0.0"
+            prefHeight="120.0"
+            prefWidth="1366.0"
+            style="-fx-background-color: #0000b7;">
+
+            <children>
+
+                <Label
+                    layoutX="425.0"
+                    layoutY="22.0"
+                    text="Salidas de emergencia"
+                    textFill="WHITE">
+
+                    <font>
+                        <Font
+                            name="Cambria Bold"
+                            size="60.0"/>
+                    </font>
+
+                </Label>
+
+            </children>
+
+        </Pane>
+
+        <!-- ========================= -->
+        <!-- PAINEL DE INFORMAÇÕES -->
+        <!-- ========================= -->
+
+        <Pane
+            layoutX="55.0"
+            layoutY="145.0"
+            prefHeight="220.0"
+            prefWidth="1256.0"
+            style="-fx-background-radius: 30px;
+                   -fx-background-color: #0000b7;">
+
+            <children>
+
+                <Text
+                    fill="WHITE"
+                    layoutX="35.0"
+                    layoutY="45.0"
+                    strokeType="OUTSIDE"
+                    strokeWidth="0.0"
+                    text="En caso de emergencia, mantenga la calma y siga las indicaciones de seguridad para realizar la evacuación de forma rápida, organizada y segura. Utilice la salida de emergencia más cercana, siguiendo las señalizaciones y las instrucciones de los responsables del lugar."
+                    wrappingWidth="1180.0">
+
+                    <font>
+                        <Font
+                            name="Candara"
+                            size="23.0"/>
+                    </font>
+
+                </Text>
+
+                <Text
+                    fill="WHITE"
+                    layoutX="35.0"
+                    layoutY="145.0"
+                    strokeType="OUTSIDE"
+                    strokeWidth="0.0"
+                    text="Para estar preparado, consulte los videos a continuación, que muestran las rutas de las salidas de emergencia y le ayudan a familiarizarse con los caminos hacia el exterior del lugar."
+                    wrappingWidth="1180.0">
+
+                    <font>
+                        <Font
+                            name="Candara"
+                            size="23.0"/>
+                    </font>
+
+                </Text>
+
+            </children>
+
+        </Pane>
+
+        <!-- ========================= -->
+        <!-- SAÍDAS DE EMERGÊNCIA -->
+        <!-- ========================= -->
+
+        <!-- ELEVADOR -->
+
+        <Button
+            layoutX="55.0"
+            layoutY="395.0"
+            mnemonicParsing="false"
+            prefHeight="55.0"
+            prefWidth="600.0"
+            style="-fx-background-radius: 30px;
+                   -fx-background-color: #0000b7;"
+            text="Salida de emergencia cerca del ascensor"
+            textFill="WHITE"
+            onAction="#abriSaidaproximodoelevador">
+
+            <font>
+                <Font
+                    name="Candara Bold"
+                    size="25.0"/>
+            </font>
+
+        </Button>
+
+        <!-- BEM-ESTAR -->
+
+        <Button
+            layoutX="55.0"
+            layoutY="470.0"
+            mnemonicParsing="false"
+            prefHeight="55.0"
+            prefWidth="600.0"
+            style="-fx-background-radius: 30px;
+                   -fx-background-color: #0000b7;"
+            text="Salida de emergencia Bienestar"
+            textFill="WHITE"
+            onAction="#abrirSaidaBemestar">
+
+            <font>
+                <Font
+                    name="Candara Bold"
+                    size="25.0"/>
+            </font>
+
+        </Button>
+
+        <!-- SEGUNDO ANDAR -->
+
+        <Button
+            layoutX="55.0"
+            layoutY="545.0"
+            mnemonicParsing="false"
+            prefHeight="55.0"
+            prefWidth="600.0"
+            style="-fx-background-radius: 30px;
+                   -fx-background-color: #0000b7;"
+            text="Salida de emergencia segundo piso"
+            textFill="WHITE"
+            onAction="#abrirSaidasegundoandar">
+
+            <font>
+                <Font
+                    name="Candara Bold"
+                    size="25.0"/>
+            </font>
+
+        </Button>
+
+        <!-- AUDITÓRIO -->
+
+        <Button
+            layoutX="711.0"
+            layoutY="395.0"
+            mnemonicParsing="false"
+            prefHeight="55.0"
+            prefWidth="600.0"
+            style="-fx-background-radius: 30px;
+                   -fx-background-color: #0000b7;"
+            text="Salida de emergencia auditorio"
+            textFill="WHITE"
+            onAction="#abrirsaidaauditorio">
+
+            <font>
+                <Font
+                    name="Candara Bold"
+                    size="25.0"/>
+            </font>
+
+        </Button>
+
+        <!-- ========================= -->
+        <!-- VOLTAR -->
+        <!-- ========================= -->
+
+        <Button
+            layoutX="711.0"
+            layoutY="470.0"
+            mnemonicParsing="false"
+            prefHeight="55.0"
+            prefWidth="600.0"
+            style="-fx-background-radius: 30px;
+                   -fx-background-color: #ff751f;"
+            text="Volver"
+            textFill="WHITE"
+            onAction="#abrirVoltar">
+
+            <font>
+                <Font
+                    name="Candara Bold"
+                    size="25.0"/>
+            </font>
+
+        </Button>
+
+        <!-- ========================= -->
+        <!-- IMAGEM -->
+        <!-- ========================= -->
+
+        <ImageView
+            fitHeight="145.0"
+            fitWidth="150.0"
+            layoutX="1120.0"
+            layoutY="600.0"
+            pickOnBounds="true"
+            preserveRatio="true">
+
+            <image>
+                <Image url="@ChatGPT%20Image%2025%20de%20ago.%20de%202026,%2016_10_18.png"/>
+            </image>
+
+        </ImageView>
+
+        <!-- ========================= -->
+        <!-- CRÉDITOS -->
+        <!-- ========================= -->
+
+        <Label
+            layoutX="40.0"
+            layoutY="735.0"
+            text="Créditos de desarrollo: Bianca Steffani y Júlia Weber. Créditos de montaje: Eduardo Brinckmann, Rafael Domingues y Rafaela Cislaghi."
+            textFill="#0000b7">
+
+            <font>
+                <Font
+                    name="Candara Bold"
+                    size="11.0"/>
+            </font>
+
+        </Label>
+
+    </children>
+
+</Pane>

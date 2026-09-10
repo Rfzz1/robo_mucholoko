@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Carrossel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .carousel {
+    position: relative;
+    width: 100%; height: 100vh;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.4s ease;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .slide.active { opacity: 1; }
+
+  .slide-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.08);
+    transition: transform 8s ease;
+  }
+
+  .slide.active .slide-bg { transform: scale(1); }
+
+  .slide-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.82) 0%,
+      rgba(0, 0, 0, 0) 25%,
+      transparent 100%
+    );
+  }
+
+  /* Left accent stripe */
+  .slide-accent {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, #ff751f 0%, #0f3d8c 100%);
+    z-index: 3;
+  }
+
+  .slide.active .slide-tag,
+  .slide.active .slide-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Slide backgrounds */
+  .slide-1 .slide-bg { background-image: url('https://scontent.fcxj17-1.fna.fbcdn.net/v/t39.30808-6/650574092_1266796015627569_6650690527424488402_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeExHFgUQZ-8ATsIHm7QCrobQgyhQ5HLUD5CDKFDkctQPlt8mxZcHlZ4zk4Nuh5hba1KCyLwtprdzCS4JU4rhOJu&_nc_ohc=hinZM26HQqwQ7kNvwFvFdnc&_nc_oc=AdpN3yWkihEYNrNBZ_H6PeJ513c6vcqiRCamgeB4w9s5GSjjCskYlRGIr5AOGHf-b1GNuK2fVB_OZtoW5-aM0c1W&_nc_zt=23&_nc_ht=scontent.fcxj17-1.fna&_nc_gid=9M6vz3Dn2-UpK53IPtg8og&_nc_ss=7a32e&oh=00_AfxZq4VwvmqlDNo_MM6X2AiLccO1BYZ5vM7A-f9SnBS0Sw&oe=69CE41A1'); }
+  .slide-2 .slide-bg { background-image: url('https://scontent.fcxj17-1.fna.fbcdn.net/v/t39.30808-6/619915027_1231329212507583_1931261461103830537_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeE1IvClwAd33spgioMNh_QNnhcNuYMgDsSeFw25gyAOxBqHnxD_5V-gKrCpDHJeMMyqMWQCMtG1jo5Df0cNkXro&_nc_ohc=XToOWX3j4q0Q7kNvwHvcKQ7&_nc_oc=Adqgazo3gWDeANBg7wyGgJMecEDyZLdVieQHuEijSooYofKi3Y1ApWz3qjMn6qJXUP6hzlvG0MTUmPs5uBer1M7B&_nc_zt=23&_nc_ht=scontent.fcxj17-1.fna&_nc_gid=r3eU6Yuk-kVMx422GxpQUg&_nc_ss=7a32e&oh=00_AfzMA2U-PCDXPnSwULOKa103tZKGSJojMsLNhd0WtsmLBQ&oe=69CE2D02'); }
+  .slide-3 .slide-bg { background-image: url('https://scontent.fcxj17-1.fna.fbcdn.net/v/t39.30808-6/575179131_1164101329230372_336103210859518281_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeG9XjOwED3rlKDni21LgnZnPUQMszkdUHw9RAyzOR1QfCfW5ek3QOyrZNNbOhG_imss08YX8ojRs7UaQfebuF2N&_nc_ohc=_O9xyhT58oYQ7kNvwGRR2w7&_nc_oc=AdqzbHIuC-Z3CTQ3m6aBCceNT7EEmi9NVPPO992AtWtD2_1qjIr4GC_W4j13QmfM3uHRxJncYElqQ16FWm_npZ7z&_nc_zt=23&_nc_ht=scontent.fcxj17-1.fna&_nc_gid=cjzSG23clPHQ7mlFPp7snw&_nc_ss=7a32e&oh=00_AfyQuX0ika0j2fN2lcIwP-KVJCdlwjNi1SUIDVqdxJQmCw&oe=69CE3B29'); }
+  .slide-4 .slide-bg { background-image: url('https://scontent.fcxj17-1.fna.fbcdn.net/v/t39.30808-6/568397544_1156409656666206_4030695511620375123_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeFgCHAOVi7fNLshW_rB3RzHzXHMMdo7gwfNccwx2juDB8gqhCZF9w6trwW9P7BZSOwAf-x406IJj5j3XLyGQ3Db&_nc_ohc=d559DZBVgXkQ7kNvwEAcS98&_nc_oc=AdqZmiZopzitCWFw-iXSgEP-ZUTFTzb2ftxMdzrplCDfEhP_EaX_G8ciVV9y3beSk7IB7HcEK2jpztlymSLBmVrB&_nc_zt=23&_nc_ht=scontent.fcxj17-1.fna&_nc_gid=dyHqCVoLoasEF5o7ISq9Og&_nc_ss=7a32e&oh=00_AfwK88mO3746pppPj9sh3EnQFBg9mEWf-jMXoA-nldltoA&oe=69CE589B'); }
+  .slide-5 .slide-bg { background-image: url('https://scontent.fcxj17-1.fna.fbcdn.net/v/t39.30808-6/559514832_1149680357339136_4102602242135045771_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEYukfk7Flqsm-o4XNlwTTBFfPWV5eLkBkV89ZXl4uQGbbUYEaYc8wEGEGH4mHdHEA6aF2cFVxlkpXBMA9NBY8j&_nc_ohc=2iI3O8qETQsQ7kNvwHb26xy&_nc_oc=AdqyKJVLwoRQiFJy2YvJJ42JOXFt_apoIJmv9pwCnMvK1CXNp_OMDtlGsZgx3KyYNv0AV9oICbFDd78PXFb9ZXbA&_nc_zt=23&_nc_ht=scontent.fcxj17-1.fna&_nc_gid=xuJ-oVngEyM5-EgVy_rIPg&_nc_ss=7a32e&oh=00_AfyUUTR4LTLy0d1pO9eNjSWIWxRRLxtMkmbqSyBd9spqDg&oe=69CE50CE'); }
+  /* Dots */
+  .dots {
+    position: absolute;
+    bottom: 2rem;
+    right: 2.5rem;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+
+  .dot {
+    width: 28px; height: 4px;
+    border-radius: 2px;
+    background: rgba(223,223,235,0.28);
+    cursor: pointer;
+    transition: background 0.4s, width 0.4s;
+  }
+
+  .dot.active {
+    background: #0f3d8c;
+    width: 52px;
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0f3d8c, #ff751f);
+    z-index: 10;
+    width: 0%;
+    animation: progress 6s linear infinite;
+  }
+
+  @keyframes progress {
+    from { width: 0%; }
+    to   { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="carousel">
+
+  <div class="slide slide-1 active">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-accent"></div>
+  </div>
+
+  <div class="slide slide-2">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-accent"></div>
+  </div>
+
+  <div class="slide slide-3">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-accent"></div>
+  </div>
+
+  <div class="slide slide-4">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-accent"></div>
+  </div>
+
+  <div class="slide slide-5">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-accent"></div>
+  </div>
+
+  <div class="dots">
+    <div class="dot active" onclick="goTo(0)"></div>
+    <div class="dot" onclick="goTo(1)"></div>
+    <div class="dot" onclick="goTo(2)"></div>
+    <div class="dot" onclick="goTo(3)"></div>
+    <div class="dot" onclick="goTo(4)"></div>
+  </div>
+
+  <div class="progress-bar" id="progress"></div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dots   = document.querySelectorAll('.dot');
+  const prog   = document.getElementById('progress');
+  let current  = 0;
+  let timer;
+
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    resetProgress();
+  }
+
+  function next() { goTo((current + 1) % slides.length); }
+
+  function resetProgress() {
+    prog.style.animation = 'none';
+    prog.offsetHeight;
+    prog.style.animation = 'progress 10s linear infinite';
+    clearInterval(timer);
+    timer = setInterval(next, 10000);
+  }
+
+  timer = setInterval(next, 10000);
+</script>
+</body>
+</html>

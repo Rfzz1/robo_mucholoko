@@ -101,9 +101,6 @@ class TerceiraPagina {
     @FXML
     fun iniciarJogo(event: ActionEvent) {
         try {
-            
-            val codigoIdioma = Navegador.obterSufixoIdioma(padrao = "0", esp = "1", ing = "2")
-
             val arquivoExe = File(System.getProperty("user.dir"), "jogo/WorkBot.exe")
 
             if (arquivoExe.exists()) {
@@ -119,7 +116,7 @@ class TerceiraPagina {
                 }
 
                 // 2. Inicia o processo do jogo
-                val processo = ProcessBuilder(arquivoExe.absolutePath, codigoIdioma)
+                val processo = ProcessBuilder(arquivoExe.absolutePath)
                 processo.directory(arquivoExe.parentFile)
                 val procAtivo = processo.start()
 
@@ -143,7 +140,6 @@ class TerceiraPagina {
                 }.start()
 
             } else {
-                System.out.println("Não foi possível encontrar o arquivo em:\n${arquivoExe.absolutePath}")    
                 val alertaErro = javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR)
                 alertaErro.title = "Erro"
                 alertaErro.headerText = "Jogo não encontrado"
